@@ -39,12 +39,12 @@ class Utilisateur extends Authenticatable
     }
 
     public function colisSauvegarde()
-    {
-        return $this->hasMany(ColisSauvegarde::class);
-    }
-
-    public function client()
-    {
-        return $this->hasOne(Client::class, 'id', 'id'); // Assumes client.id = utilisateur.id
-    }
+     {
+         return $this->hasMany(ColisSauvegarde::class);
+     }
+ 
+     public function client()
+     {
+         return $this->hasOne(Client::class, 'id', 'id'); 
+     }
 }
