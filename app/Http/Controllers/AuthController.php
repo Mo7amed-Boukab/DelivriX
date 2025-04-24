@@ -8,6 +8,9 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -70,5 +73,26 @@ class AuthController extends Controller
             'client' => 'client.dashboard',
             default => 'login',
         };
+    }
+
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+       $googleUser = Socialite::driver('google')->user();
+       $userEmail = $googleUser->getEmail();
+
+       $checkUser = Utilisateur::where('email', $userEmail)->first();
+
+       if ($checkUser) {
+           Auth::login($checkUser);
+           return redirect()->intended(route($this->redirectBasedOnRole(Auth::user()->role)));
+       } else {
+           return redirect()->route('login.page')->withErrors(['email' => 'Aucun compte n\'est associé à cette adresse e-mail Google.']);
+       }
     }
 }

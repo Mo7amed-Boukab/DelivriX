@@ -28,3 +28,6 @@ Route::middleware(['auth', 'isLivreur'])->prefix('livreur')->group(function () {
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::get('/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
 });
+
+Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('google.callback');
