@@ -21,33 +21,34 @@ class Commande extends Model
         'paiement_status',
         'livraison_status',
         'commande_statut',
-        'utilisateur_id',
-        'livreur_id'
+        'date_commande',
+        'id_client',
+        'id_livreur'
     ];
 
-    public function utilisateur()
+    public function client()
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(Client::class, 'id_client');
     }
 
     public function livreur()
     {
-        return $this->belongsTo(Livreur::class);
+        return $this->belongsTo(Livreur::class, 'id_livreur');
     }
 
-    public function reduction()
+    public function reductions()
     {
-        return $this->hasOne(Reduction::class);
+        return $this->hasMany(Reduction::class, 'id_commande');
     }
 
     public function paiements()
     {
-        return $this->hasMany(Paiement::class);
+        return $this->hasMany(Paiement::class, 'id_commande');
     }
 
     public function colis()
     {
-        return $this->hasOne(Colis::class);
+        return $this->hasMany(Colis::class, 'id_commande');
     }
 
     public function historiqueCommandes()

@@ -27,6 +27,7 @@ Route::post('/register', [AuthController::class, 'login'])->name('login');
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
  Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
  Route::get('/commandes', [CommandesController::class, 'viewCommandesAdminPage'])->name('admin.commandes');
+ Route::post('/commandes', [CommandesController::class, 'ajouteCommande'])->name('admin.commandes.store');
  Route::get('/livraison', [LivraisonController::class, 'viewLivraisonPage'])->name('admin.livraison');
  Route::get('/clients', [ClientController::class, 'viewClientPage'])->name('admin.clients');
  Route::get('/paiements', [PaiementsController::class, 'viewPaiementAdminPage'])->name('admin.paiements');

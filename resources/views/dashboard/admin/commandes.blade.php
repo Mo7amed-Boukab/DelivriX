@@ -60,7 +60,7 @@
               {{-- ------------------------- Ajoute d'une Commande ----------------------------- --}}
                 <div class="flex justify-start sm:col-span-4 sm:justify-end">
                     <button onclick="openModalCommande()"
-                        class="flex gap-2 justify-center items-center px-4 py-2 w-full text-sm font-medium text-white bg-gradient-to-b from-gray-950 to-gray-900 rounded-md transition-colors sm:w-auto hover:from-gray-900 hover:to-black">
+                        class="flex gap-2 justify-center items-center px-4 py-2 w-full text-sm font-medium text-white bg-gradient-to-b to-gray-900 rounded-md transition-colors from-gray-950 sm:w-auto hover:from-gray-900 hover:to-black">
                         <i class="fas fa-plus"></i>
                         Nouvelle Commande
                     </button>
@@ -111,7 +111,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
                                     <button onclick="openModalDetails2()"
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b  from-gray-900 to-gray-950 rounded hover:from-gray-950 hover:to-black">Details</button>
+                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
                                 </td>
                             </tr>
 
@@ -141,7 +141,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
                                     <button onclick="openModalDetails()"
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b  from-gray-900 to-gray-950 rounded hover:from-gray-950 hover:to-black">Details</button>
+                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
                                 </td>
                             </tr>
 
@@ -171,7 +171,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
                                     <button
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 to-gray-950 rounded hover:from-gray-950 hover:to-black">Details</button>
+                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
                                 </td>
                             </tr>
 
@@ -188,7 +188,7 @@
                         <button
                             class="px-2 py-1 text-xs text-gray-600 rounded border sm:px-3 hover:bg-gray-100 sm:text-sm">Précédent</button>
                         <button
-                            class="px-2 py-1 text-xs text-white bg-gray-950 rounded border sm:px-3 sm:text-sm">1</button>
+                            class="px-2 py-1 text-xs text-white rounded border bg-gray-950 sm:px-3 sm:text-sm">1</button>
                         <button
                             class="px-2 py-1 text-xs text-gray-600 rounded border sm:px-3 hover:bg-gray-100 sm:text-sm">2</button>
                         <button
@@ -214,7 +214,8 @@
             </div>
 
             <div class="px-6 py-4">
-                <form>
+                <form method="POST" action="{{ route('admin.commandes.store') }}">
+                    @csrf
                     <div class="mb-4">
                         <h3 class="flex justify-between items-center pb-2 mb-2 text-sm font-medium text-gray-900 uppercase border-b cursor-pointer"
                             onclick="toggleSection('clientInfo')">
@@ -229,28 +230,28 @@
                         <div id="clientInfo" class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Nom Complet</label>
-                                <input type="text"
+                                <input type="text" name="nom_complet"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Nom et prénom">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Téléphone</label>
-                                <input type="tel"
+                                <input type="tel" name="telephone"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Ex: 06 12 34 56 78">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Email (optionnel)</label>
-                                <input type="email"
+                                <input type="email" name="email"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="email@exemple.com">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Ville</label>
-                                <select
+                                <select name="ville"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow">
                                     <option value="">Sélectionnez une ville</option>
                                     <option value="casablanca">Casablanca</option>
@@ -264,7 +265,7 @@
 
                             <div class="md:col-span-2">
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Adresse</label>
-                                <input type="text"
+                                <input type="text" name="adresse"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Adresse complète">
                             </div>
@@ -286,28 +287,28 @@
                         <div id="produitInfo" class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Produit</label>
-                                <input type="text"
+                                <input type="text" name="nom_produit"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Nom du produit">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Description</label>
-                                <input type="text"
+                                <input type="text" name="details_produit"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Details complémentaire">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Prix Unitaire (DH)</label>
-                                <input type="text"
+                                <input type="number" name="prix"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Prix unitaire">
                             </div>
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Quantité</label>
-                                <input type="number"
+                                <input type="number" name="quantite"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Quantité">
                             </div>
@@ -335,7 +336,7 @@
 
                             <div>
                                 <label class="block mb-1 text-sm font-normal text-gray-900">Montant Total (DH)</label>
-                                <input type="text"
+                                <input type="text" name="total"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Calculé automatiquement" readonly>
                             </div>
@@ -371,11 +372,10 @@
                                 <div class="mb-4">
                                     <label class="block mb-1 text-sm font-normal text-gray-900">Méthode de paiement</label>
                                     <div class="relative">
-                                        <select
+                                        <select name="paiement_type"
                                             class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 appearance-none placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow">
-                                            <option value="livraison">Paiement à la livraison</option>
-                                            <option value="carte">Carte bancaire</option>
-                                            <option value="virement">Virement bancaire</option>
+                                            <option value="a_la_livraison">Paiement à la livraison</option>
+                                            <option value="en_ligne">Carte bancaire</option>
                                         </select>
                                         <div
                                             class="flex absolute inset-y-0 right-0 items-center px-2 text-gray-900 pointer-events-none">
@@ -391,10 +391,10 @@
                                 <div>
                                     <label class="block mb-1 text-sm font-normal text-gray-900">Statut de paiement</label>
                                     <div class="relative">
-                                        <select
+                                        <select name="paiement_status"
                                             class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 appearance-none placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow">
-                                            <option value="non_paye">Pas encore payé</option>
-                                            <option value="paye">Payé</option>
+                                            <option value="0">Pas encore payé</option>
+                                            <option value="1">Payé</option>
                                         </select>
                                         <div
                                             class="flex absolute inset-y-0 right-0 items-center px-2 text-gray-900 pointer-events-none">
@@ -416,7 +416,7 @@
                             Annuler
                         </button>
                         <button type="submit"
-                            class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 to-gray-950 rounded-md hover:from-gray-950 hover:to-black">
+                            class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
                             Enregistrer
                         </button>
                     </div>
@@ -685,7 +685,7 @@
                     Annuler
                 </button>
                 <button
-                    class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 to-gray-950 rounded-md hover:from-gray-950 hover:to-black">
+                    class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
                     Enregistrer
                 </button>
             </div>
