@@ -3,8 +3,15 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalendrieController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ColieController;
+use App\Http\Controllers\CommandesController;
+use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\LivreurController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\PaiementsController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,10 +26,21 @@ Route::post('/register', [AuthController::class, 'login'])->name('login');
 
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
  Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+ Route::get('/commandes', [CommandesController::class, 'viewCommandesAdminPage'])->name('admin.commandes');
+ Route::get('/livraison', [LivraisonController::class, 'viewLivraisonPage'])->name('admin.livraison');
+ Route::get('/clients', [ClientController::class, 'viewClientPage'])->name('admin.clients');
+ Route::get('/paiements', [PaiementsController::class, 'viewPaiementAdminPage'])->name('admin.paiements');
+ Route::get('/notifications', [NotificationsController::class, 'viewNotificationsAdminPage'])->name('admin.notifications');
 });
 
 Route::middleware(['auth', 'isLivreur'])->prefix('livreur')->group(function () {
  Route::get('/dashboard', [LivreurController::class, 'index'])->name('livreur.dashboard');
+Route::get('/commandes', [CommandesController::class, 'viewCommandesLivreurPage'])->name('livreur.commandes');
+Route::get('/colis', [ColieController::class, 'viewColisPage'])->name('livreur.colis');
+Route::get('/calendrie', [CalendrieController::class, 'viewCalendriePage'])->name('livreur.calendrie');
+Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage'])->name('livreur.paiements');
+Route::get('/notifications', [NotificationsController::class, 'viewNotificationsLivreurPage'])->name('livreur.notifications');
+Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->name('livreur.profile');
 });
 
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
