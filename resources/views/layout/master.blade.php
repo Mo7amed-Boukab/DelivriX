@@ -13,8 +13,12 @@
 </head>
 <body class="flex h-screen  font-sans bg-gray-50">
 
-   {{-- @include('layout.sidebar1') --}}
-   @include('layout.sidebar2')
+
+   @if(auth()->check() && auth()->user()->role == 'administrateur')
+   @include('layout.sidebar1')
+   @else 
+     @include('layout.sidebar2')
+   @endif
       
     @yield('main')
     @yield('modal')
