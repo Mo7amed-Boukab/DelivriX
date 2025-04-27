@@ -101,4 +101,23 @@ class CommandesController extends Controller
 
        return redirect()->route('admin.commandes')->with('success', $message);
    }
+
+   public function assignerLivreur(Request $request, $id)
+   {
+       $request->validate([
+           'livreur_id' => 'required|exists:livreurs,id'
+       ]);
+
+       try {
+           $commande = Commande::findOrFail($id);
+           $commande->id_livreur = $request->livreur_id;
+           $commande->save();
+
+           return redirect()->route('admin.commandes')
+               ->with('success', 'Livreur assigné avec succès à la commande.');
+       } catch (\Exception $e) {
+           return redirect()->route('admin.commandes')
+               ->with('error', 'Une erreur est survenue lors de l\'assignation.');
+       }
+   }
 }

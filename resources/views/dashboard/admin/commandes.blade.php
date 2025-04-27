@@ -57,7 +57,7 @@
                         <option value="annule">Annulé</option>
                     </select>
                 </div>
-              {{-- ------------------------- Ajoute d'une Commande ----------------------------- --}}
+                {{-- ------------------------- Ajoute d'une Commande ----------------------------- --}}
                 <div class="flex justify-start sm:col-span-4 sm:justify-end">
                     <button onclick="openModalCommande()"
                         class="flex gap-2 justify-center items-center px-4 py-2 w-full text-sm font-medium text-white bg-gradient-to-b to-gray-900 rounded-md transition-colors from-gray-950 sm:w-auto hover:from-gray-900 hover:to-black">
@@ -84,54 +84,55 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($commandes as $commande)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">{{ $commande->commande_number }}</span>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
-                                    {{ $commande->created_at->format('d/m/Y') }}
-                                </td>
-                                <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
-                                    <div class="text-sm text-gray-900">{{ $commande->client->utilisateur->name }}</div>
-                                    <div class="text-xs text-gray-500">{{ $commande->client->utilisateur->phone }}</div>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
-                                    {{ $commande->nom_produit }}
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
-                                    {{ $commande->quantite }}
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
-                                    {{ $commande->prix }} DH
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
-                                    {{ $commande->total_a_payer }} DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        @if($commande->commande_statut == 'confirmer')
-                                            <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                            <span class="text-xs">Confirmée</span>
-                                        @elseif($commande->commande_statut == 'annulee')
-                                            <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
-                                            <span class="text-xs">Annulée</span>
-                                        @else
-                                            <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
-                                            <span class="text-xs">En attente</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    <button onclick="openModalDetails({{ $commande->id }})"
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
+                            @foreach ($commandes as $commande)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">{{ $commande->commande_number }}</span>
+                                    </td>
+                                    <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
+                                        {{ $commande->created_at->format('d/m/Y') }}
+                                    </td>
+                                    <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
+                                        <div class="text-sm text-gray-900">{{ $commande->client->utilisateur->name }}</div>
+                                        <div class="text-xs text-gray-500">{{ $commande->client->utilisateur->phone }}</div>
+                                    </td>
+                                    <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                        {{ $commande->nom_produit }}
+                                    </td>
+                                    <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                        {{ $commande->quantite }}
+                                    </td>
+                                    <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                        {{ $commande->prix }} DH
+                                    </td>
+                                    <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                        {{ $commande->total_a_payer }} DH
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            @if ($commande->commande_statut == 'confirmer')
+                                                <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
+                                                <span class="text-xs">Confirmée</span>
+                                            @elseif($commande->commande_statut == 'annulee')
+                                                <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
+                                                <span class="text-xs">Annulée</span>
+                                            @else
+                                                <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
+                                                <span class="text-xs">En attente</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center whitespace-nowrap">
+                                        <button onclick="openModalDetails({{ $commande->id }})"
+                                            class="px-4 py-1 text-xs font-medium text-gray-950 bg-gradient-to-b from-gray-100 rounded to-gray-200 hover:from-gray-200 hover:to-gray-300 border border-gray-200">Details</button>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-               {{-- Pagination --------------------------------------------------------------------------------------------------------- --}}
+                {{-- Pagination --------------------------------------------------------------------------------------------------------- --}}
                 <div class="flex flex-col justify-between items-center p-6 border-t border-gray-200 md:flex-row">
                     <div class="mb-4 w-full text-center md:mb-0 md:text-left md:w-auto">
                         <p class="text-sm text-gray-600">Affichage de 1 à 10 sur 45 entrées</p>
@@ -351,153 +352,162 @@
     </div>
 
     {{-- ------------------------------------- Modal Details des commandes ------------------------------------------- --}}
-    @foreach ($commandes as $commande )
-    <div id="detailsModal{{$commande->id}}" class="hidden fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-50">
-        <div class="bg-white rounded-md shadow-lg w-full max-w-3xl max-h-[100vh] overflow-y-auto">
-            <div class="flex justify-between items-center px-6 py-3 border-b">
-                <h2 class="text-lg font-medium">Details de Commande N <span class="text-gray-600">{{ $commande->commande_number }}</span></h2>
-                <button onclick="closeModalDetails({{ $commande->id }})" class="text-gray-500 hover:text-gray-900">
-                    <i class="text-2xl ri-close-line"></i>
-                </button>
-            </div>
+    @foreach ($commandes as $commande)
+        <div id="detailsModal{{ $commande->id }}"
+            class="hidden fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-50">
+            <div class="bg-white rounded-md shadow-lg w-full max-w-3xl max-h-[100vh] overflow-y-auto">
+                <div class="flex justify-between items-center px-6 py-3 border-b">
+                    <h2 class="text-lg font-medium">Details de Commande N <span
+                            class="text-gray-600">{{ $commande->commande_number }}</span></h2>
+                    <button onclick="closeModalDetails({{ $commande->id }})" class="text-gray-500 hover:text-gray-900">
+                        <i class="text-2xl ri-close-line"></i>
+                    </button>
+                </div>
 
-            <div class="px-6 py-2 my-1">
-                <p class="text-gray-800">Date de commande: {{ $commande->created_at->format('d M, Y') }}</p>
-            </div>
+                <div class="px-6 py-2 my-1">
+                    <p class="text-gray-800">Date de commande: {{ $commande->created_at->format('d M, Y') }}</p>
+                </div>
 
-            <div class="grid grid-cols-6 gap-5 px-6">
-                <div class="col-span-4">
-                    <div class="mb-5">
-                        <div class="bg-[#f5f5f566] p-1 mb-3">
-                            <h5 class="text-gray-900">INFORMATION DU PRODUIT</h5>
-                        </div>
-
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="text-left">
-                                <p class="mb-1">{{ $commande->nom_produit }}</p>
-                                <p class="mb-2 text-sm text-gray-600">{{ $commande->details_produit }}</p>
+                <div class="grid grid-cols-6 gap-5 px-6">
+                    <div class="col-span-4">
+                        <div class="mb-5">
+                            <div class="bg-[#f5f5f566] p-1 mb-3">
+                                <h5 class="text-gray-900">INFORMATION DU PRODUIT</h5>
                             </div>
-                            <div class="text-right">
-                                <p class="mb-1">{{ $commande->prix }} DH</p>
-                                <p class="mb-2 text-sm text-gray-600">Quantité : {{ $commande->quantite }}</p>
-                            </div>
-                        </div>
 
-                        <div class="mt-5">
-                            <div class="grid grid-cols-4 gap-5 justify-between">
-                                <div class="col-span-2">
-                                    <h6 class="mb-2">Details de paiement</h6>
-                                    <div class="space-y-2">
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Prix unitaire:</span>
-                                            <span class="text-sm">{{ $commande->prix }} DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Total à payer</span>
-                                            <span class="text-sm">{{ $commande->total_a_payer }} DH</span>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="text-left">
+                                    <p class="mb-1">{{ $commande->nom_produit }}</p>
+                                    <p class="mb-2 text-sm text-gray-600">{{ $commande->details_produit }}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="mb-1">{{ $commande->prix }} DH</p>
+                                    <p class="mb-2 text-sm text-gray-600">Quantité : {{ $commande->quantite }}</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <div class="grid grid-cols-4 gap-5 justify-between">
+                                    <div class="col-span-2">
+                                        <h6 class="mb-2">Details de paiement</h6>
+                                        <div class="space-y-2">
+                                            <div class="flex justify-between">
+                                                <span class="text-sm text-gray-600">Prix unitaire:</span>
+                                                <span class="text-sm">{{ $commande->prix }} DH</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-sm text-gray-600">Total à payer</span>
+                                                <span class="text-sm">{{ $commande->total_a_payer }} DH</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-span-2 justify-self-end">
-                                    <h6 class="mb-2">Méthode de paiement</h6>
-                               
-                                    <p class="text-sm text-gray-600">{{ $commande->paiement_type == 'a_la_livraison' ? 'Paiement à la livraison': 'paiement en ligne'}}</p>
-                                    @if($commande->paiement_status == 1)
-                                        <p class="mt-2 text-sm text-green-700">Payé</p>
-                                    @else
-                                        <p class="mt-2 text-sm text-red-700">Pas encore payé</p>
-                                    @endif
+                                    <div class="col-span-2 justify-self-end">
+                                        <h6 class="mb-2">Méthode de paiement</h6>
+
+                                        <p class="text-sm text-gray-600">
+                                            {{ $commande->paiement_type == 'a_la_livraison' ? 'Paiement à la livraison' : 'paiement en ligne' }}
+                                        </p>
+                                        @if ($commande->paiement_status == 1)
+                                            <p class="mt-2 text-sm text-green-700">Payé</p>
+                                        @else
+                                            <p class="mt-2 text-sm text-red-700">Pas encore payé</p>
+                                        @endif
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2">
+                        <div class="bg-[#f5f5f566] p-1 mb-3">
+                            <h5 class="text-gray-900">INFORMATION DU CLIENT</h5>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <p class="mb-1">Nom Complet</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->name }}</p>
+                            </div>
+
+                            <div>
+                                <p class="mb-1">Téléphone</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->photo }}</p>
+                            </div>
+
+                            <div>
+                                <p class="mb-1">Email</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->email }}</p>
+                            </div>
+
+                            <div>
+                                <p class="mb-1">Adresse de livraison</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->adresse }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-span-2">
-                    <div class="bg-[#f5f5f566] p-1 mb-3">
-                        <h5 class="text-gray-900">INFORMATION DU CLIENT</h5>
+                <div class="px-6 py-3 mt-2 mb-4">
+                    <div class="bg-[#f5f5f566] py-1 px-3 mb-3">
+                        <h5 class="text-gray-900">INFORMATION DE LIVRAISON</h5>
                     </div>
 
-                    <div class="space-y-3">
-                        <div>
-                            <p class="mb-1">Nom Complet</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->name }}</p>
-                        </div>
+                    @if ($commande->id_livreur)
+                        <div class="grid grid-cols-3 gap-5">
+                            <div>
+                                <p class="mb-1">Entreprise de Livraison</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->nom_entreprise }}</p>
 
-                        <div>
-                            <p class="mb-1">Téléphone</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->photo }}</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Email</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->email }}</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Adresse de livraison</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->adresse }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="px-6 py-3 mt-2 mb-4">
-                <div class="bg-[#f5f5f566] py-1 px-3 mb-3">
-                    <h5 class="text-gray-900">INFORMATION DE LIVRAISON</h5>
-                </div>
-
-                @if($commande->id_livreur)
-                    <div class="grid grid-cols-3 gap-5">
-                        <div>
-                            <p class="mb-1">Entreprise de Livraison</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->nom_entreprise }}</p>
-
-                            <p class="mb-1">Nom du Livreur</p>
-                            <p class="text-sm text-gray-600">{{ $commande->livreur->nom_livreur }}</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Email</p>
-                            <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->utilisateur->email }}</p>
-
-                            <p class="mb-1">Téléphone</p>
-                            <p class="text-sm text-gray-600">{{ $commande->livreur->utilisateur->phone}}</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Statut de Livraison</p>
-                            <div class="flex items-center">
-                                <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                <span class="mb-2 text-sm text-gray-600">{{ $commande->livreur->statut }}</span>
+                                <p class="mb-1">Nom du Livreur</p>
+                                <p class="text-sm text-gray-600">{{ $commande->livreur->nom_livreur }}</p>
                             </div>
 
-                            <p class="mb-1">Date de livraison estimée</p>
-                            <p class="text-sm text-gray-600">{{ $commande->livreur->created_at->format('d M, Y') }}</p>
+                            <div>
+                                <p class="mb-1">Email</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->utilisateur->email }}</p>
+
+                                <p class="mb-1">Téléphone</p>
+                                <p class="text-sm text-gray-600">{{ $commande->livreur->utilisateur->phone }}</p>
+                            </div>
+
+                            <div>
+                                <p class="mb-1">Statut de Livraison</p>
+                                <div class="flex items-center">
+                                    <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
+                                    <span class="mb-2 text-sm text-gray-600">{{ $commande->livreur->statut }}</span>
+                                </div>
+
+                                <p class="mb-1">Date de livraison estimée</p>
+                                <p class="text-sm text-gray-600">{{ $commande->livreur->created_at->format('d M, Y') }}</p>
+                            </div>
                         </div>
-                    </div>
-                @else
-                    <div>
-                        <select  class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
-                            <option value="">Sélectionnez un livreur</option>
-                            @foreach($livreurs as $livreur)
-                                <option value="{{ $livreur->id }}">{{ $livreur->nom_livreur }} - {{ $livreur->nom_entreprise }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="flex justify-end mt-4 space-x-3">
-                        <button onclick="closeModalDetails({{ $commande->id }})" class="px-4 py-2 text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200">
-                            Annuler
-                        </button>
-                        <button id="assignerBtn" class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
-                            Enregistrer
-                        </button>
-                    </div>
-                @endif
+                    @else
+                        <form action="{{ route('admin.commandes.assigner-livreur', $commande->id) }}" method="POST">
+                            @csrf
+                            <div>
+                                <select name="livreur_id" class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                                    <option value="">Sélectionnez un livreur</option>
+                                    @foreach ($livreurs as $livreur)
+                                        <option value="{{ $livreur->id }}">{{ $livreur->nom_livreur }} - {{ $livreur->nom_entreprise }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="flex justify-end mt-4 space-x-3">
+                                <button type="button" onclick="closeModalDetails({{ $commande->id }})"
+                                    class="px-4 py-2 text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200">
+                                    Annuler
+                                </button>
+                                <button type="submit"
+                                    class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
+                                    Assigner
+                                </button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
     @endforeach
 @endsection
 
@@ -534,6 +544,5 @@
             section.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
-
     </script>
 @endsection
