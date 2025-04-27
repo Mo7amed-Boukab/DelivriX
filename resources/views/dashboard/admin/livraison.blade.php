@@ -60,73 +60,34 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">Mohammed Alami</div>
-                                <div class="text-xs text-gray-500">ATP Entreprise</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">0603348455</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">m.alami@atp.ma</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">Nador</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">Taourit Boussetta Selouane</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="h-2.5 w-2.5 rounded-full bg-green-700 mr-2"></span>
-                                    <span class="text-sm text-gray-700">Active</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                             <div class="flex justify-end space-x-2">
-                              <button class="px-3 py-1 bg-gradient-to-b from-yellow-700 to-yellow-800 text-white text-xs font-medium rounded hover:from-yellow-800 hover:to-yellow-900">Suspendre</button>
-                              <button class="px-3 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-xs font-medium rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
-                             </div>
-                         </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">Mohammed Alami</div>
-                                <div class="text-xs text-gray-500">ATP Entreprise</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">0603348455</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">m.alami@atp.ma</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">Nador</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">Taourit Boussetta Selouane</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="h-2.5 w-2.5 rounded-full bg-green-700 mr-2"></span>
-                                    <span class="text-sm text-gray-700">Active</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                             <div class="flex justify-end space-x-2">
-                              <button class="px-3 py-1 bg-gradient-to-b from-yellow-700 to-yellow-800 text-white text-xs font-medium rounded hover:from-yellow-800 hover:to-yellow-900">Suspendre</button>
-                              <button class="px-3 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-xs font-medium rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
-                         </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">Mohammed Alami</div>
-                                <div class="text-xs text-gray-500">ATP Entreprise</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">0603348455</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">m.alami@atp.ma</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">Nador</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">Taourit Boussetta Selouane</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <span class="h-2.5 w-2.5 rounded-full bg-yellow-700 mr-2"></span>
-                                    <span class="text-sm text-gray-700">Suspendu</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                <div class="flex justify-end space-x-2">
-                                    <button class="px-3 py-1 bg-gradient-to-b from-green-800 to-green-900 text-white text-xs font-medium rounded hover:from-green-900 hover:to-green-950">Activer</button>
-                                    <button class="px-3 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-xs font-medium rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($livreurs as $livreur)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $livreur->nom_livreur }}</div>
+                                    <div class="text-xs text-gray-500">{{ $livreur->nom_entreprise }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">{{ $livreur->utilisateur->phone }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">{{ $livreur->utilisateur->email }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">{{ $livreur->utilisateur->ville }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">{{ $livreur->utilisateur->adresse }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        @if($livreur->statut == 'active')
+                                            <span class="h-2.5 w-2.5 rounded-full bg-green-700 mr-2"></span>
+                                            <span class="text-sm text-gray-700">Active</span>
+                                        @else
+                                            <span class="h-2.5 w-2.5 rounded-full bg-red-700 mr-2"></span>
+                                            <span class="text-sm text-gray-700">Inactive</span>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <div class="flex justify-end space-x-2">
+                                        <button class="px-3 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-xs font-medium rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

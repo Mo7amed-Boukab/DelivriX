@@ -14,7 +14,8 @@ class LivraisonController extends Controller
 {
    public function viewLivraisonPage()
    {
-      return view("dashboard/admin/livraison");
+      $livreurs = Livreur::with('utilisateur')->get();
+      return view("dashboard/admin/livraison", compact('livreurs'));
    }
 
    public function ajouteLivreur(Request $request)
