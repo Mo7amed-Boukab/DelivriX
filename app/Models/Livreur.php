@@ -19,7 +19,7 @@ class Livreur extends Model
 
     public function utilisateur()
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(Utilisateur::class, 'id');
     }
 
     public function commandes()

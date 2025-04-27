@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Models\Client;
 use App\Models\Utilisateur;
+use App\Models\Livreur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -21,7 +22,8 @@ class CommandesController extends Controller
    public function viewCommandesAdminPage()
    {
       $commandes = Commande::with(['client.utilisateur'])->latest()->get();
-      return view("dashboard/admin/commandes", compact('commandes'));
+      $livreurs = Livreur::with('utilisateur')->get();
+      return view("dashboard/admin/commandes", compact('commandes', 'livreurs'));
    }
 
    public function ajouteCommande(Request $request)

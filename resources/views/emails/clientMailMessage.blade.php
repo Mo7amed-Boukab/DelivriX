@@ -17,7 +17,7 @@
              <p>Prix total : <strong>{{ $total}} DH</strong></p>
          </div>
          
-         @if($is_new_account=true)
+         @if($is_new_account==true)
          <p>Voici vos informations de connexion à notre platform DelivriX:</p>  
          <div>
              <p>Email : <strong>{{ $email}}</strong></p>

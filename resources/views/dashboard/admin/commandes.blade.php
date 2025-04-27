@@ -123,7 +123,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    <button onclick="openModalDetails2()"
+                                    <button onclick="openModalDetails({{ $commande->id }})"
                                         class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
                                 </td>
                             </tr>
@@ -350,18 +350,19 @@
         </div>
     </div>
 
-{{-- --------------------- Modal 1 pour Details des commandes : après d'assigner commande --------------------------- --}}
-    <div id="detailsModal" class="hidden fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-50">
+    {{-- ------------------------------------- Modal Details des commandes ------------------------------------------- --}}
+    @foreach ($commandes as $commande )
+    <div id="detailsModal{{$commande->id}}" class="hidden fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-50">
         <div class="bg-white rounded-md shadow-lg w-full max-w-3xl max-h-[100vh] overflow-y-auto">
             <div class="flex justify-between items-center px-6 py-3 border-b">
-                <h2 class="text-lg font-medium">Details de Commande N <span class="text-gray-600">FGT875</span></h2>
-                <button onclick="closeModalDetails()" class="text-gray-500 hover:text-gray-900">
+                <h2 class="text-lg font-medium">Details de Commande N <span class="text-gray-600">{{ $commande->commande_number }}</span></h2>
+                <button onclick="closeModalDetails({{ $commande->id }})" class="text-gray-500 hover:text-gray-900">
                     <i class="text-2xl ri-close-line"></i>
                 </button>
             </div>
 
             <div class="px-6 py-2 my-1">
-                <p class="text-gray-800">Date de commande: 14 Avril, 2025</p>
+                <p class="text-gray-800">Date de commande: {{ $commande->created_at->format('d M, Y') }}</p>
             </div>
 
             <div class="grid grid-cols-6 gap-5 px-6">
@@ -373,12 +374,12 @@
 
                         <div class="flex justify-between items-center mb-4">
                             <div class="text-left">
-                                <p class="mb-1">Smartphone XYZ Pro Max</p>
-                                <p class="mb-2 text-sm text-gray-600">Modèle: SM-12345 | Couleur: Noir</p>
+                                <p class="mb-1">{{ $commande->nom_produit }}</p>
+                                <p class="mb-2 text-sm text-gray-600">{{ $commande->details_produit }}</p>
                             </div>
                             <div class="text-right">
-                                <p class="mb-1">6065.00 DH</p>
-                                <p class="mb-2 text-sm text-gray-600">Quantité : 1</p>
+                                <p class="mb-1">{{ $commande->prix }} DH</p>
+                                <p class="mb-2 text-sm text-gray-600">Quantité : {{ $commande->quantite }}</p>
                             </div>
                         </div>
 
@@ -389,169 +390,24 @@
                                     <div class="space-y-2">
                                         <div class="flex justify-between">
                                             <span class="text-sm text-gray-600">Prix unitaire:</span>
-                                            <span class="text-sm">6500.00 DH</span>
+                                            <span class="text-sm">{{ $commande->prix }} DH</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Remise 5 %</span>
-                                            <span class="text-sm text-red-700">- 325.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Escompte 2 %</span>
-                                            <span class="text-sm text-red-700">- 130.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Livraison</span>
-                                            <span class="text-red-700">- 50.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between pt-1 border-t">
-                                            <span class="text-sm text-gray-600">Montant à payer</span>
-                                            <span class="text-sm">6045.00 DH</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-span-2 justify-self-end">
-                                    <h6 class="mb-2">Méthode de paiement</h6>
-                                    <p class="text-sm text-gray-600">Paiement à la livraison</p>
-                                    <p class="mt-2 text-sm text-green-700">Payé le 02/04/2025</p>
-                                    <p class="hidden text-sm text-red-700">Pas encore payé</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-2">
-                    <div class="bg-[#f5f5f566] p-1 mb-3">
-                        <h5 class="text-gray-900">INFORMATION DU CLIENT</h5>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div>
-                            <p class="mb-1">Nom Complet</p>
-                            <p class="mb-2 text-sm text-gray-600">Mohammed Alaoui</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Téléphone</p>
-                            <p class="mb-2 text-sm text-gray-600">06 12 34 56 78</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Email</p>
-                            <p class="mb-2 text-sm text-gray-600">m.alaoui@exemple.com</p>
-                        </div>
-
-                        <div>
-                            <p class="mb-1">Adresse de livraison</p>
-                            <p class="mb-2 text-sm text-gray-600">123 Rue Hassan II, Quartier Maarif, Casablanca, 20100</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="px-6 py-3 mt-2 mb-4">
-                <div class="bg-[#f5f5f566] py-1 px-3 mb-3">
-                    <h5 class="text-gray-900">INFORMATION DE LIVRAISON</h5>
-                </div>
-
-                <div class="grid grid-cols-3 gap-5">
-                    <div>
-                        <p class="mb-1">Entreprise de Livraison</p>
-                        <p class="mb-2 text-sm text-gray-600">ATP Transport</p>
-
-                        <p class="mb-1">Nom du Livreur</p>
-                        <p class="text-sm text-gray-600">Ahmed Benjelloun</p>
-                    </div>
-
-                    <div>
-                        <p class="mb-1">Email</p>
-                        <p class="mb-2 text-sm text-gray-600">m.alami@atp.ma</p>
-
-                        <p class="mb-1">Téléphone</p>
-                        <p class="text-sm text-gray-600">07 45 78 23 90</p>
-                    </div>
-
-                    <div>
-                        <p class="mb-1">Statut de Livraison</p>
-                        <div class="flex items-center">
-                            <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                            <span class="mb-2 text-sm text-gray-600">En route</span>
-                        </div>
-
-                        <p class="mb-1">Date de livraison estimée</p>
-                        <p class="text-sm text-gray-600">16 Avril, 2025</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- ----------------- Modal 2 pour Details des commandes: Avant assigne a un Livreur -------------------------- --}}
-    <div id="detailsModal2" class="hidden fixed inset-0 z-50 justify-center items-center p-4 bg-black bg-opacity-50">
-        <div class="bg-white rounded-md shadow-lg w-full max-w-3xl max-h-[100vh] overflow-y-auto">
-            <div class="flex justify-between items-center px-6 py-3 border-b">
-                <h2 class="text-lg font-medium">Details de Commande N <span class="text-gray-600">FGT875</span></h2>
-                <button onclick="closeModalDetails2()" class="text-gray-500 hover:text-gray-900">
-                    <i class="text-2xl ri-close-line"></i>
-                </button>
-            </div>
-
-            <div class="px-6 py-2 my-1">
-                <p class="text-gray-800">Date de commande: 14 Avril, 2025</p>
-            </div>
-
-            <div class="grid grid-cols-6 gap-5 px-6">
-                <div class="col-span-4">
-                    <div class="mb-5">
-                        <div class="bg-[#f5f5f566] p-1 mb-3">
-                            <h5 class="text-gray-900">INFORMATION DU PRODUIT</h5>
-                        </div>
-
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="text-left">
-                                <p class="mb-1">Smartphone XYZ Pro Max</p>
-                                <p class="mb-2 text-sm text-gray-600">Modèle: SM-12345 | Couleur: Noir</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="mb-1">6065.00 DH</p>
-                                <p class="mb-2 text-sm text-gray-600">Quantité : 1</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-5">
-                            <div class="grid grid-cols-4 gap-5 justify-between">
-                                <div class="col-span-2">
-                                    <h6 class="mb-2">Details de paiement</h6>
-                                    <div class="space-y-2">
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Prix unitaire:</span>
-                                            <span class="text-sm">6500.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Remise 5 %</span>
-                                            <span class="text-sm text-red-700">- 325.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Escompte 2 %</span>
-                                            <span class="text-sm text-red-700">- 130.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-600">Livraison</span>
-                                            <span class="text-red-700">- 50.00 DH</span>
-                                        </div>
-                                        <div class="flex justify-between pt-1 border-t">
                                             <span class="text-sm text-gray-600">Total à payer</span>
-                                            <span class="text-sm">6045.00 DH</span>
+                                            <span class="text-sm">{{ $commande->total_a_payer }} DH</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-span-2 justify-self-end">
                                     <h6 class="mb-2">Méthode de paiement</h6>
-                                    <p class="text-sm text-gray-600">Paiement à la livraison</p>
-                                    <p class="hidden mt-2 text-sm text-green-700">Payé le 02/04/2025</p>
-                                    <p class="mt-2 text-sm text-red-700">Pas encore payé</p>
+                               
+                                    <p class="text-sm text-gray-600">{{ $commande->paiement_type == 'a_la_livraison' ? 'Paiement à la livraison': 'paiement en ligne'}}</p>
+                                    @if($commande->paiement_status == 1)
+                                        <p class="mt-2 text-sm text-green-700">Payé</p>
+                                    @else
+                                        <p class="mt-2 text-sm text-red-700">Pas encore payé</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -566,22 +422,22 @@
                     <div class="space-y-3">
                         <div>
                             <p class="mb-1">Nom Complet</p>
-                            <p class="mb-2 text-sm text-gray-600">Mohammed Alaoui</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->name }}</p>
                         </div>
 
                         <div>
                             <p class="mb-1">Téléphone</p>
-                            <p class="mb-2 text-sm text-gray-600">06 12 34 56 78</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->photo }}</p>
                         </div>
 
                         <div>
                             <p class="mb-1">Email</p>
-                            <p class="mb-2 text-sm text-gray-600">m.alaoui@exemple.com</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->email }}</p>
                         </div>
 
                         <div>
                             <p class="mb-1">Adresse de livraison</p>
-                            <p class="mb-2 text-sm text-gray-600">123 Rue Hassan II, Quartier Maarif, Casablanca, 20100</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->client->utilisateur->adresse }}</p>
                         </div>
                     </div>
                 </div>
@@ -592,57 +448,73 @@
                     <h5 class="text-gray-900">INFORMATION DE LIVRAISON</h5>
                 </div>
 
-                <div>
-                    <select
-                        class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
-                        <option value="">Sélectionnez un livreur</option>
-                        <option value="1">Ahmed Benjelloun - ATP Transport</option>
-                        <option value="2">Karim Tazi - Amana Express</option>
-                        <option value="3">Younes Alami - Chronopost</option>
-                        <option value="4">Rachid Mansouri - DHL Maroc</option>
-                    </select>
-                </div>
-            </div>
+                @if($commande->id_livreur)
+                    <div class="grid grid-cols-3 gap-5">
+                        <div>
+                            <p class="mb-1">Entreprise de Livraison</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->nom_entreprise }}</p>
 
-            <div class="flex justify-end px-6 py-4 space-x-3 border-t">
-                <button onclick="closeModalDetails2()"
-                    class="px-4 py-2 text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200">
-                    Annuler
-                </button>
-                <button
-                    class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
-                    Enregistrer
-                </button>
+                            <p class="mb-1">Nom du Livreur</p>
+                            <p class="text-sm text-gray-600">{{ $commande->livreur->nom_livreur }}</p>
+                        </div>
+
+                        <div>
+                            <p class="mb-1">Email</p>
+                            <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->utilisateur->email }}</p>
+
+                            <p class="mb-1">Téléphone</p>
+                            <p class="text-sm text-gray-600">{{ $commande->livreur->utilisateur->phone}}</p>
+                        </div>
+
+                        <div>
+                            <p class="mb-1">Statut de Livraison</p>
+                            <div class="flex items-center">
+                                <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
+                                <span class="mb-2 text-sm text-gray-600">{{ $commande->livreur->statut }}</span>
+                            </div>
+
+                            <p class="mb-1">Date de livraison estimée</p>
+                            <p class="text-sm text-gray-600">{{ $commande->livreur->created_at->format('d M, Y') }}</p>
+                        </div>
+                    </div>
+                @else
+                    <div>
+                        <select  class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                            <option value="">Sélectionnez un livreur</option>
+                            @foreach($livreurs as $livreur)
+                                <option value="{{ $livreur->id }}">{{ $livreur->nom_livreur }} - {{ $livreur->nom_entreprise }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex justify-end mt-4 space-x-3">
+                        <button onclick="closeModalDetails({{ $commande->id }})" class="px-4 py-2 text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200">
+                            Annuler
+                        </button>
+                        <button id="assignerBtn" class="px-4 py-2 text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black">
+                            Enregistrer
+                        </button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
+    @endforeach
 @endsection
 
 @section('script')
     <script>
-        const detailsModal = document.getElementById('detailsModal');
-
-        function openModalDetails() {
-            detailsModal.classList.remove('hidden');
-            detailsModal.classList.add('flex');
+        function openModalDetails(commandeId) {
+            const modal = document.getElementById(`detailsModal${commandeId}`);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
-        function closeModalDetails() {
-            detailsModal.classList.remove('flex');
-            detailsModal.classList.add('hidden');
+        function closeModalDetails(commandeId) {
+            const modal = document.getElementById(`detailsModal${commandeId}`);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
 
-        const detailsModal2 = document.getElementById('detailsModal2');
-
-        function openModalDetails2() {
-            detailsModal2.classList.remove('hidden');
-            detailsModal2.classList.add('flex');
-        }
-
-        function closeModalDetails2() {
-            detailsModal2.classList.remove('flex');
-            detailsModal2.classList.add('hidden');
-        }
         const commandeModal = document.getElementById('commandeModal');
 
         function openModalCommande() {
