@@ -84,29 +84,42 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Order Row 1 -->
+                            @foreach($commandes as $commande)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">BD54822D</span>
+                                    <span class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">{{ $commande->commande_number }}</span>
                                 </td>
                                 <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
-                                    27/07/2025</td>
+                                    {{ $commande->created_at->format('d/m/Y') }}
+                                </td>
                                 <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
+                                    <div class="text-sm text-gray-900">{{ $commande->client->utilisateur->name }}</div>
+                                    <div class="text-xs text-gray-500">{{ $commande->client->utilisateur->phone }}</div>
                                 </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">produit 1
+                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                    {{ $commande->nom_produit }}
                                 </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">2</td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">150 DH
+                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                    {{ $commande->quantite }}
                                 </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">300 DH
+                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                    {{ $commande->prix }} DH
+                                </td>
+                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                    {{ $commande->total_a_payer }} DH
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <span class="mr-2 w-2.5 h-2.5 bg-gray-400 rounded-full"></span>
-                                        <span class="text-xs">en attende</span>
+                                        @if($commande->commande_statut == 'confirmer')
+                                            <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
+                                            <span class="text-xs">Confirmée</span>
+                                        @elseif($commande->commande_statut == 'annulee')
+                                            <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
+                                            <span class="text-xs">Annulée</span>
+                                        @else
+                                            <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
+                                            <span class="text-xs">En attente</span>
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-center whitespace-nowrap">
@@ -114,67 +127,7 @@
                                         class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">BD54822D</span>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
-                                    27/07/2025</td>
-                                <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">produit 1
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">2</td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">150 DH
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">300 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                        <span class="text-xs">valider</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    <button onclick="openModalDetails()"
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">BD54822D</span>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
-                                    27/07/2025</td>
-                                <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">produit
-                                    1</td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">2</td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">150 DH
-                                </td>
-                                <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">300 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
-                                        <span class="text-xs">annuler</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-center whitespace-nowrap">
-                                    <button
-                                        class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -243,7 +196,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-sm font-normal text-gray-900">Email (optionnel)</label>
+                                <label class="block mb-1 text-sm font-normal text-gray-900">Email</label>
                                 <input type="email" name="email"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="email@exemple.com">
@@ -293,7 +246,7 @@
                             </div>
 
                             <div>
-                                <label class="block mb-1 text-sm font-normal text-gray-900">Description</label>
+                                <label class="block mb-1 text-sm font-normal text-gray-900">Description (optionnel)</label>
                                 <input type="text" name="details_produit"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Details complémentaire">
@@ -311,34 +264,6 @@
                                 <input type="number" name="quantite"
                                     class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                                     placeholder="Quantité">
-                            </div>
-
-                          {{--  Container pour stocker les réductions ajoutés ------------------------------------------------------------------ --}}
-                            <div id="reductionFields" class="col-span-1 md:col-span-2">
-
-                            </div>
-                          {{-- ----------------------------------------------------------------------------------------------------------------- --}}
-                            <div>
-                                <label class="block mb-1 text-sm font-normal text-gray-900">Réduction</label>
-                                <div class="relative">
-                                    <button type="button" onclick="ajouterReduction()"
-                                        class="flex justify-between items-center px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 ease hover:border-gray-300 focus:shadow">
-                                        <span>Ajouter une réduction</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500"
-                                            viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block mb-1 text-sm font-normal text-gray-900">Montant Total (DH)</label>
-                                <input type="text" name="total"
-                                    class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
-                                    placeholder="Calculé automatiquement" readonly>
                             </div>
 
                             <div>
@@ -730,8 +655,6 @@
             commandeModal.classList.add('hidden');
         }
 
-        let reductionCounter = 0;
-
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);
             const icon = document.getElementById(sectionId + 'Icon');
@@ -740,42 +663,5 @@
             icon.classList.toggle('rotate-180');
         }
 
-        function ajouterReduction() {
-            const reductionFields = document.getElementById('reductionFields');
-            const reductionId = 'reduction-' + reductionCounter;
-            reductionCounter++;
-
-            const reductionGroup = document.createElement('div');
-            reductionGroup.id = reductionId;
-            reductionGroup.className = 'grid grid-cols-1 md:grid-cols-2 gap-4 mb-4';
-
-            reductionGroup.innerHTML = `
-      <div>
-        <label class="block mb-1 text-sm font-medium text-gray-900">Nom de Réduction</label>
-        <input type="text" class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow" placeholder="Nom de la réduction">
-      </div>
-      <div>
-        <label class="block flex justify-between mb-1 text-sm font-medium text-gray-900">
-          Montant du Réduction
-          <button type="button" onclick="supprimerReduction('${reductionId}')" class="text-gray-500 hover:text-red-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </label>
-        <input type="number" class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow" placeholder="Montant de la réduction">
-      </div>
-    `;
-
-            reductionFields.appendChild(reductionGroup);
-            reductionFields.classList.remove('hidden');
-        }
-
-        function supprimerReduction(reductionId) {
-            const reductionElement = document.getElementById(reductionId);
-            if (reductionElement) {
-                reductionElement.remove();
-            }
-        }
     </script>
 @endsection

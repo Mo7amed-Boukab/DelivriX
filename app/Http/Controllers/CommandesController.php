@@ -20,7 +20,8 @@ class CommandesController extends Controller
 
    public function viewCommandesAdminPage()
    {
-     return view("dashboard/admin/commandes");
+      $commandes = Commande::with(['client.utilisateur'])->latest()->get();
+      return view("dashboard/admin/commandes", compact('commandes'));
    }
 
    public function ajouteCommande(Request $request)
