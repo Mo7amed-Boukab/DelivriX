@@ -7,7 +7,9 @@ use App\Models\Client;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Mail\sendEmail;
 
 class CommandesController extends Controller
 {
@@ -26,7 +28,7 @@ class CommandesController extends Controller
        $request->validate([
            'nom_complet' => 'required|string',
            'telephone' => 'required',
-           'email' => 'required|email|unique:utilisateurs',
+           'email' => 'required|email',
            'ville' => 'required|string',
            'adresse' => 'required|string',
            'nom_produit' => 'required|string',
@@ -35,29 +37,36 @@ class CommandesController extends Controller
            'prix' => 'required|numeric',
            'paiement_type' => 'required|in:a_la_livraison,en_ligne',
            'paiement_status' => 'required|boolean',
-           'reductions' => 'nullable|array',
-           'reductions.*.nom' => 'required|string',
-           'reductions.*.montant' => 'required|numeric',
        ]);
 
-       $password = Str::random(8) . rand(10, 99) . '!@';
+       $utilisateur = Utilisateur::where('email', $request->email)->first();
+       $is_new_account = false;
+       $password = null;
 
-       $utilisateur = Utilisateur::create([
-           'name' => $request->nom_complet,
-           'email' => $request->email,
-           'password' => Hash::make($password),
-           'role' => 'client',
-           'phone' => $request->telephone,
-           'ville' => $request->ville,
-           'adresse' => $request->adresse,
-       ]);
+       if (!$utilisateur) {
+           $password = Str::random(8) . rand(10, 99) . '!@';
+           $utilisateur = Utilisateur::create([
+               'name' => $request->nom_complet,
+               'email' => $request->email,
+               'password' => Hash::make($password),
+               'role' => 'client',
+               'phone' => $request->telephone,
+               'ville' => $request->ville,
+               'adresse' => $request->adresse,
+           ]);
 
-       $client = Client::create([
-           'id' => $utilisateur->id
-       ]);
+           Client::create([
+               'id' => $utilisateur->id
+           ]);
+
+           $is_new_account = true;
+       } else {
+           if ($utilisateur->role !== 'client') {
+               return redirect()->route('admin.commandes')->with('error', 'Cet email est déjà utilisé par un administrateur ou un livreur.');
+           }
+       }
 
        $commandeNumber = 'CMD' . rand(10000, 99999);
-
        $total = $request->prix * $request->quantite;
 
        $commande = Commande::create([
@@ -69,10 +78,24 @@ class CommandesController extends Controller
            'total_a_payer' => $total,
            'paiement_type' => $request->paiement_type,
            'paiement_status' => $request->paiement_status,
-           'id_client' => $client->id,
+           'id_client' => $utilisateur->id,
        ]);
 
+       Mail::to($request->email)->send(new sendEmail(
+           $request->nom_complet,
+           $request->email,
+           $password,
+           $commandeNumber,
+           $request->nom_produit,
+           $request->quantite,
+           $total,
+           $is_new_account
+       ));
 
-       return redirect()->route('admin.commandes')->with('success', 'Commande créée avec succès.');
+       $message = $is_new_account 
+           ? 'Commande créée avec succès. Les informations de connexion ont été envoyées à l\'email du client.'
+           : 'Commande créée avec succès. Une confirmation a été envoyée à l\'email du client.';
+
+       return redirect()->route('admin.commandes')->with('success', $message);
    }
 }
