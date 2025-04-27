@@ -36,10 +36,11 @@
             </div>
             
             <div class="sm:col-span-6 flex justify-start sm:justify-end">
-             <button onclick="openModalLivreur()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-b from-gray-900 to-gray-950 text-white text-sm font-medium rounded-md hover:from-gray-950 hover:to-black transition-colors">
-              <i class="fas fa-plus"></i>
-               Ajouter un livreur
-             </button>
+             <button onclick="openModalLivreur()"
+                  class="flex gap-2 justify-center items-center px-4 py-2 w-full text-sm font-medium text-white bg-gradient-to-b to-gray-900 rounded-md transition-colors from-gray-950 sm:w-auto hover:from-gray-900 hover:to-black">
+                  <i class="fas fa-user-plus"></i>
+                  Ajouter un livreur
+              </button>
        </div>
         </div>
         
@@ -161,34 +162,35 @@
   </div>
    
   <div class="px-6 py-4">
-   <form>
+   <form method="POST" action="{{ route('admin.livraison.store') }}">
+     @csrf
      <div class="mb-6">
        <h3 class="text-sm font-medium text-gray-700 uppercase mb-4 border-b pb-2">INFORMATION DU LIVREUR</h3>
          
          <div class="space-y-4">
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Entreprise</label>
-             <input type="text" class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Nom d'entreprise">
+             <input type="text" name="nom_entreprise" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Nom d'entreprise">
            </div>
            
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-             <input type="email" class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="email@exemple.com">
+             <input type="email" name="email" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="email@exemple.com">
            </div>
            
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Nom Livreur</label>
-             <input type="text" class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Nom et prénom">
+             <input type="text" name="nom_livreur" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Nom et prénom">
            </div>
            
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
-             <input type="tel" class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Ex: 06 12 34 56 78">
+             <input type="tel" name="phone" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Ex: 06 12 34 56 78">
            </div>
            
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Ville</label>
-             <select class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow">
+             <select name="ville" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow">
                <option value="">Sélectionnez une ville</option>
                <option value="casablanca">Casablanca</option>
                <option value="rabat">Rabat</option>
@@ -201,8 +203,9 @@
            
            <div>
              <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
-             <input type="text" class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Adresse complète">
+             <input type="text" name="adresse" required class="w-full bg-transparent placeholder:text-gray-400 text-gray-600 text-sm border border-gray-200 rounded-md px-4 py-2 transition duration-300 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Adresse complète">
            </div>
+
          </div>
        </div>
 
