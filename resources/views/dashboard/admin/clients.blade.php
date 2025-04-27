@@ -25,13 +25,6 @@
                     />
                 </div>
             </div>
-
-            <div class="sm:col-span-8 flex justify-start sm:justify-end">
-               <button onclick="openModalClient()"  class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-b from-gray-900 to-gray-950 text-white text-sm font-medium rounded-md hover:from-gray-950 hover:to-black transition-colors">
-                <i class="fas fa-plus"></i>
-                Ajouter un Client
-               </button>
-            </div>
         </div>
        {{-- --------------------------------------- Tableau des clients ---------------------------------------- --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-50">
@@ -39,8 +32,7 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <th scope="col" class="px-6 py-3">CLIENT ID</th>
-                            <th scope="col" class="px-6 py-3">Nom COMPLET</th>
+                            <th scope="col" class="px-6 py-3">Nom CLIENT</th>
                             <th scope="col" class="px-6 py-3 hidden sm:table-cell">TELEPHONE</th>
                             <th scope="col" class="px-6 py-3 hidden md:table-cell">EMAIL</th>
                             <th scope="col" class="px-6 py-3 hidden md:table-cell">VILLE</th>
@@ -49,20 +41,20 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
+                     @foreach($clients as $client)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">LS42846</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Mohamed boukab</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">0603348455</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">med.boukab@gmail.com</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">Nador</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">Taourit Boussetta Selouane</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $client->utilisateur->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden sm:table-cell">{{ $client->utilisateur->phone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">{{ $client->utilisateur->email }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden md:table-cell">{{ $client->utilisateur->ville }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 hidden lg:table-cell">{{ $client->utilisateur->adresse }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-center">
                                 <div class="flex justify-center space-x-2">
                                     <button class="px-3 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-xs font-medium rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
                                 </div>
                             </td>
                         </tr>
-                    
+                     @endforeach
                     </tbody>
                 </table>
             </div>

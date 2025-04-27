@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,6 +13,7 @@ class AdminController extends Controller
 
     public function viewClientPage()
    {
-    return view("dashboard/admin/clients");
+    $clients = Client::with('utilisateur')->get();
+    return view("dashboard/admin/clients", compact('clients'));
    }
 }
