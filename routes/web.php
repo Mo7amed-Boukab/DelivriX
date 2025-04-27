@@ -29,7 +29,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
  Route::get('/commandes', [CommandesController::class, 'viewCommandesAdminPage'])->name('admin.commandes');
  Route::post('/commandes', [CommandesController::class, 'ajouteCommande'])->name('admin.commandes.store');
  Route::get('/livraison', [LivraisonController::class, 'viewLivraisonPage'])->name('admin.livraison');
- Route::get('/clients', [ClientController::class, 'viewClientPage'])->name('admin.clients');
+Route::get('/clients', [AdminController::class, 'viewClientPage'])->name('admin.clients');
  Route::get('/paiements', [PaiementsController::class, 'viewPaiementAdminPage'])->name('admin.paiements');
  Route::get('/notifications', [NotificationsController::class, 'viewNotificationsAdminPage'])->name('admin.notifications');
 });
