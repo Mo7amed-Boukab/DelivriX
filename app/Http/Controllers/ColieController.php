@@ -47,4 +47,18 @@ class ColieController extends Controller
                ->with('error', 'Une erreur est survenue lors de l\'ajout du colis.');
        }
    }  
+
+   public function updateColieStatus(Request $request, Colis $colis)
+  {
+     $request->validate([
+         'colisStatut' => 'required|in:en_preparation,en_route,livree',
+     ]);
+
+     $colis->update([
+         'statut' => $request->colisStatut
+     ]);
+
+        return redirect()->route('livreur.colis')->with('success', 'Colis Modifier avec succès.');
+
+   }
 }

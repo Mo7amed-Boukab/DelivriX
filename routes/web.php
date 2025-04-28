@@ -43,6 +43,8 @@ Route::get('/commandes', [CommandesController::class, 'viewCommandesLivreurPage'
 Route::post('/commandes/{commande}/accepter', [CommandesController::class, 'accepterLivraison'])->name('commandes.accepter');
 Route::post('/commandes/{commande}/refuser', [CommandesController::class, 'refuserLivraison'])->name('commandes.refuser');
 Route::get('/colis', [ColieController::class, 'viewColisPage'])->name('livreur.colis');
+Route::post('/colis/ajouter', [ColieController::class, 'ajouteColis'])->name('colis.store');
+Route::put('/colis/{colis}/update-status', [ColieController::class, 'updateColieStatus'])->name('colis.update-status');
 Route::get('/calendrie', [CalendrieController::class, 'viewCalendriePage'])->name('livreur.calendrie');
 Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage'])->name('livreur.paiements');
 Route::get('/notifications', [NotificationsController::class, 'viewNotificationsLivreurPage'])->name('livreur.notifications');

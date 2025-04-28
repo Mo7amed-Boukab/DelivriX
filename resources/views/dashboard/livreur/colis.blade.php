@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="border-b-2"></div>  
+    <div class="border-b-2"></div>
     
     <div class="p-4 pt-6 mx-auto max-w-full bg-white lg:p-8">
         <div class="grid grid-cols-1 gap-4 items-center mb-8 sm:grid-cols-12">
@@ -42,7 +42,7 @@
             
             <div class="flex justify-start sm:col-span-6 sm:justify-end">
                 <button onclick="openModalColie()" class="flex gap-2 justify-center items-center px-4 py-2 w-full text-sm font-medium text-white bg-gradient-to-b from-gray-900 rounded-md transition-colors sm:w-auto to-gray-950 hover:from-gray-950 hover:to-black">
-                    <i class="fas fa-plus"></i>
+                 <i class="fas fa-plus"></i>
                     Ajouter un Colis
                 </button>      
             </div>
@@ -77,13 +77,13 @@
                                <div class="flex items-center">
                                 @if($colie->statut == 'en_preparation')
                                     <span class="mr-2 w-2.5 h-2.5 bg-blue-900 rounded-full"></span>
-                                    <span class="text-xs">En préparation</span>
+                                <span class="text-xs">En préparation</span>
                                 @elseif($colie->statut == 'en_route')
                                     <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
-                                    <span class="text-xs">En route</span>
+                                <span class="text-xs">En route</span>
                                 @else
                                     <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                    <span class="text-xs">Livrée</span>
+                                <span class="text-xs">Livrée</span>
                                 @endif
                               </div>
                             </td>
@@ -271,16 +271,19 @@
                     <span class="text-xs">Livrée</span>
                 @endif
            </div>
-         </div>   
-         <div>
-           <p class="mb-2 text-sm font-normal sm:text-base">Mettre à jour status</p>
-           <select id="colisStatutSelect" class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
-             <option value="">Selectionner une status</option>
-             <option value="en_preparation" @if($colie->statut == 'en_preparation') selected @endif>En préparation</option>
-             <option value="en_route" @if($colie->statut == 'en_route') selected @endif>En route</option>
-             <option value="livree" @if($colie->statut == 'livree') selected @endif>Livrée</option>
-           </select>
-         </div>
+          </div>
+          <form action="{{route('colis.update-status',$colie->id)}}" method="POST">
+           @csrf
+           @method('PUT')  
+            <div>
+              <p class="mb-2 text-sm font-normal sm:text-base">Mettre à jour status</p>
+              <select name="colisStatut" class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
+                <option value="">Selectionner une status</option>
+                <option value="en_preparation" @if($colie->statut == 'en_preparation') selected @endif>En préparation</option>
+                <option value="en_route" @if($colie->statut == 'en_route') selected @endif>En route</option>
+                <option value="livree" @if($colie->statut == 'livree') selected @endif>Livrée</option>
+              </select>
+            </div>
        </div>
      </div>
      
@@ -313,7 +316,7 @@
      </div>
    </div>
 
-   <div class="px-4 py-2 sm:px-6">
+   {{-- <div class="px-4 py-2 sm:px-6">
     <p class="mb-2 text-sm font-normal sm:text-base">Dernière adresse</p>
     <input 
       type="text" 
@@ -321,15 +324,17 @@
       placeholder="Dernière position arriver" 
       class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
     >
-  </div>
+  </div> --}}
    
    <div class="flex gap-2 justify-end p-4 mt-4 border-t">
-     <button onclick="closeModalDetails({{$colie->id}})" class="px-4 py-1.5 w-auto text-sm text-gray-700 rounded-md hover:bg-gray-100 sm:text-base">
-      Annuler
-     </button>
-     <button onclick="updateColisStatus()" class="px-4 py-1.5 w-auto text-sm text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black sm:text-base">
-      Enregistrer
-     </button>
+       <button onclick="closeModalDetails({{$colie->id}})" class="px-4 py-1.5 w-auto text-sm text-gray-700 rounded-md hover:bg-gray-100 sm:text-base">
+        Annuler
+      </button>
+
+        <button type="submit" class="px-4 py-1.5 w-auto text-sm text-white bg-gradient-to-b from-gray-900 rounded-md to-gray-950 hover:from-gray-950 hover:to-black sm:text-base">
+         Enregistrer
+        </button>
+   </form>  
    </div>
  </div>
 </div>
@@ -416,13 +421,13 @@
     function openModalDetails(colisId){
      const detailsModal = document.getElementById(`detailsModal${colisId}`);
      detailsModal.classList.remove('hidden');
-     detailsModal.classList.add('flex'); 
+     detailsModal.classList.add('flex');
     }
     function closeModalDetails(colisId) {
            const detailsModal = document.getElementById(`detailsModal${colisId}`);
-           detailsModal.classList.remove('flex');
-           detailsModal.classList.add('hidden');
-     }
+     detailsModal.classList.remove('flex');
+     detailsModal.classList.add('hidden');
+    }
 
       setTimeout(() => {
           document.querySelectorAll('[id^="toast-"]').forEach(el => el.style.display = 'none');
