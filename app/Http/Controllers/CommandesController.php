@@ -121,4 +121,25 @@ class CommandesController extends Controller
                ->with('error', 'Une erreur est survenue lors de l\'assignation.');
        }
    }
+
+   public function accepterLivraison(Commande $commande)
+    {   
+        $commande->update([
+            'livraison_status' => 'accepter'
+        ]);
+
+        return redirect()->route('livreur.commandes')
+            ->with('success', 'Commande est acceptée.');
+    }
+
+    public function refuserLivraison(Commande $commande)
+    {
+        $commande->update([
+            'livraison_status' => 'refuser'
+        ]);
+
+        return redirect()->route('livreur.commandes')
+            ->with('success', 'Commande est refusée.');
+    }
+
 }

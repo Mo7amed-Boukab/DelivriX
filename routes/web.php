@@ -22,6 +22,7 @@ Route::get('/register', [AuthController::class, 'showRegisterPage'])->middleware
 
 Route::post('/login', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
@@ -39,6 +40,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'isLivreur'])->prefix('livreur')->group(function () {
  Route::get('/dashboard', [LivreurController::class, 'index'])->name('livreur.dashboard');
 Route::get('/commandes', [CommandesController::class, 'viewCommandesLivreurPage'])->name('livreur.commandes');
+Route::post('/commandes/{commande}/accepter', [CommandesController::class, 'accepterLivraison'])->name('commandes.accepter');
+Route::post('/commandes/{commande}/refuser', [CommandesController::class, 'refuserLivraison'])->name('commandes.refuser');
 Route::get('/colis', [ColieController::class, 'viewColisPage'])->name('livreur.colis');
 Route::get('/calendrie', [CalendrieController::class, 'viewCalendriePage'])->name('livreur.calendrie');
 Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage'])->name('livreur.paiements');
@@ -52,3 +55,5 @@ Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
 
 Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('google.callback');
+
+

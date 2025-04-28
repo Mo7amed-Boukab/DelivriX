@@ -242,15 +242,22 @@
           </div>
         </div>
       </div>
-      
+      @if($commande->livraison_status === 'en_attente')
       <div class="flex justify-end p-4 border-t mt-4 gap-2">
-        <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-green-700 to-green-800 text-white rounded-md hover:from-green-800 hover:to-green-900 text-sm sm:text-base">
-          Accepter
-        </button>
-        <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-red-700 to-red-800 text-white rounded-md hover:from-red-800 hover:to-red-900 text-sm sm:text-base">
-          Refuser
-        </button>
+       <form method="POST" action="{{ route('commandes.accepter', $commande->id) }}">
+          @csrf
+          <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-green-700 to-green-800 text-white rounded-md hover:from-green-800 hover:to-green-900 text-sm sm:text-base">
+            Accepter
+          </button>
+      </form>
+      <form method="POST" action="{{ route('commandes.refuser', $commande->id) }}">
+         @csrf
+          <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-red-700 to-red-800 text-white rounded-md hover:from-red-800 hover:to-red-900 text-sm sm:text-base">
+            Refuser
+          </button>
+      </form>
       </div>
+      @endif
     </div>
 </div>
 @endforeach
