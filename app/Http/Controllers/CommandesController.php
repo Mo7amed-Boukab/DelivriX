@@ -16,7 +16,8 @@ class CommandesController extends Controller
 {
    public function viewCommandesLivreurPage()
    {
-      return view("dashboard/livreur/commandes");
+      $commandes = Commande::with(['client.utilisateur'])->latest()->get();
+      return view("dashboard/livreur/commandes", compact('commandes'));
    }
 
    public function viewCommandesAdminPage()

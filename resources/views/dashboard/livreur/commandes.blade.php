@@ -76,102 +76,55 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">BD54822D</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden sm:table-cell">
-                                    27/07/2025</td>
-                                <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">produit 1
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">150 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">300 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <span class="h-2.5 w-2.5 rounded-full mr-2 bg-yellow-700"></span>
-                                        <span class="text-xs">en attende</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <button
-                                        onclick="openModalDetails()"
-                                        class="px-4 py-1 bg-gradient-to-b from-gray-900 to-gray-950 text-white text-xs font-medium rounded hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">BD54822D</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden sm:table-cell">
-                                    27/07/2025</td>
-                                <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">produit 1
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">150 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">300 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <span class="h-2.5 w-2.5 rounded-full mr-2 bg-green-700"></span>
-                                        <span class="text-xs">valider</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <button
-                                        class="px-4 py-1 bg-gradient-to-b from-gray-900 to-gray-950 text-white text-xs font-medium rounded hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">BD54822D</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden sm:table-cell">
-                                    27/07/2025</td>
-                                <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                    <div class="text-sm text-gray-900">Med Boukab</div>
-                                    <div class="text-xs text-gray-500">06 03 38 94 25</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">produit
-                                    1</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">2</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">150 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">300 DH
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <span class="h-2.5 w-2.5 rounded-full mr-2 bg-red-700"></span>
-                                        <span class="text-xs">annuler</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <button
-                                        class="px-4 py-1 bg-gradient-to-b from-gray-900 to-gray-950 text-white text-xs font-medium rounded hover:from-gray-950 hover:to-black">Details</button>
-                                </td>
-                            </tr>
-
+                         @foreach ($commandes as $commande)
+                         <tr>
+                             <td class="px-6 py-4 whitespace-nowrap">
+                                 <span
+                                     class="px-2.5 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded">{{ $commande->commande_number }}</span>
+                             </td>
+                             <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap sm:table-cell">
+                                 {{ $commande->created_at->format('d/m/Y') }}
+                             </td>
+                             <td class="hidden px-6 py-4 whitespace-nowrap md:table-cell">
+                                 <div class="text-sm text-gray-900">{{ $commande->client->utilisateur->name }}</div>
+                                 <div class="text-xs text-gray-500">{{ $commande->client->utilisateur->phone }}</div>
+                             </td>
+                             <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                 {{ $commande->nom_produit }}
+                             </td>
+                             <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                 {{ $commande->quantite }}
+                             </td>
+                             <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                 {{ $commande->prix }} DH
+                             </td>
+                             <td class="hidden px-6 py-4 text-sm text-gray-900 whitespace-nowrap md:table-cell">
+                                 {{ $commande->total_a_payer }} DH
+                             </td>
+                             <td class="px-6 py-4 whitespace-nowrap">
+                                 <div class="flex items-center">
+                                     @if ($commande->commande_statut == 'confirmer')
+                                         <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
+                                         <span class="text-xs">Confirmée</span>
+                                     @elseif($commande->commande_statut == 'annulee')
+                                         <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
+                                         <span class="text-xs">Annulée</span>
+                                     @else
+                                         <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
+                                         <span class="text-xs">En attente</span>
+                                     @endif
+                                 </div>
+                             </td>
+                             <td class="px-6 py-4 text-center whitespace-nowrap">
+                                 <button onclick="openModalDetails({{ $commande->id }})"
+                                     class="px-4 py-1 text-xs font-medium text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-black border border-gray-200">Details</button>
+                             </td>
+                         </tr>
+                         @endforeach
                         </tbody>
                     </table>
                 </div>
-
-                <!-- Improved Responsive Pagination -->
+                
                 <div class="flex flex-col md:flex-row justify-between items-center p-6 border-t border-gray-200">
                     <div class="mb-4 md:mb-0 text-center md:text-left w-full md:w-auto">
                         <p class="text-sm text-gray-600">Affichage de 1 à 10 sur 45 entrées</p>
@@ -198,139 +151,122 @@
 
 @section('modal')
 
-<div id="detailsModal" class="fixed hidden inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-md shadow-lg w-full max-w-3xl max-h-[100vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b px-6 py-3">
-        <h2 class="text-lg font-bold">Details de Commande N <span class="text-gray-600">FGT875</span></h2>
-        <button onclick="closeModalDetails()" class="text-gray-500 hover:text-gray-700">
+@foreach ($commandes as $commande)
+<div id="detailsModal{{ $commande->id }}" class="fixed hidden inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-md shadow-lg w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b px-4 sm:px-6 py-3">
+        <h2 class="text-base sm:text-md font-medium">Details de Commande N <span class="text-gray-600">{{ $commande->commande_number }}</span></h2>
+        <button onclick="closeModalDetails({{ $commande->id }})" class="text-gray-500 hover:text-gray-700">
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
       
-      <div class="px-6 py-2 my-1">
-        <p class="text-gray-800">Date de commande: 14 Avril, 2025</p>
+      <div class="px-4 sm:px-6 py-2 my-1">
+        <p class="text-gray-800 text-sm sm:text-base">Date de commande: {{ $commande->created_at->format('d M, Y') }}</p>
       </div>
       
-      <div class="px-6 grid grid-cols-6 gap-5">
-        <div class="col-span-4">
+      <div class="px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+        <div class="col-span-1">
           <div class="mb-5">
             <div class="bg-[#f5f5f566] p-1 mb-3">
-              <h5 class="text-gray-900">INFORMATION DU PRODUIT</h5>
+              <h5 class="text-gray-900 text-sm sm:text-base font-normal">INFORMATION DU PRODUIT</h5>
             </div>
             
-            <div class="mb-4 flex items-center justify-between">
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
-                <p class="mb-1">Smartphone XYZ Pro Max</p>
-                <p class="text-gray-600 text-sm mb-2">Modèle: SM-12345 | Couleur: Noir</p>
-              </div>
-              <div class="text-right">
-                <p class="mb-1">6065.00 DH</p>
-                <p class="text-gray-600 text-sm mb-2">Quantité : 1</p>
+                <p class="mb-1 text-sm sm:text-base font-normal">{{ $commande->nom_produit }}</p>
+                <p class="text-gray-600 text-sm sm:text-base mb-2">{{ $commande->details_produit }}</p>
               </div>
             </div>
             
             <div class="mt-5">
-              <div class="grid grid-cols-4 gap-5 justify-between">
-                <div class="col-span-2">
-                  <h6 class="mb-2">Details de paiement</h6>
+              <div class="grid grid-cols-1 gap-5">
+                <div>
+                  <h6 class="mb-2 text-sm sm:text-base font-normal">Details de paiement</h6>
                   <div class="space-y-2">
                     <div class="flex justify-between">
-                      <span class="text-gray-600 text-sm">Prix unitaire:</span>
-                      <span class="text-sm">6500.00 DH</span>
+                      <span class="text-gray-600 text-sm sm:text-base">Prix unitaire:</span>
+                      <span class="text-sm sm:text-base font-normal">{{ $commande->prix }} DH</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-gray-600 text-sm">Remise 5 %</span>
-                      <span class="text-red-700 text-sm">- 325.00 DH</span>
+                      <span class="text-gray-600 text-sm sm:text-base">Quantité :</span>
+                      <span class="text-sm sm:text-base font-normal">{{ $commande->quantite }}</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-gray-600 text-sm">Escompte 2 %</span>
-                      <span class="text-red-700 text-sm">- 130.00 DH</span>
-                    </div>
-                    <div class="flex justify-between">
-                      <span class="text-gray-600 text-sm">Livraison</span>
-                      <span class="text-red-700 text-sm">- 50.00 DH</span>
-                    </div>
-                    <div class="flex justify-between pt-1 border-t">
-                      <span class="text-gray-600 text-sm">Total (HT)</span>
-                      <span class="text-sm">6045.00 DH</span>
-                    </div>
-                    <div class="flex justify-between">
-                      <span class="text-gray-600 text-sm">TVA</span>
-                      <span class="text-red-700 text-sm">+ 20.00 DH</span>
-                    </div>
-                    <div class="flex justify-between pt-1 border-t">
-                      <span class="text-gray-600 text-sm">Total (TTC)</span>
-                      <span class="text-sm">6065.00 DH</span>
+                      <span class="text-gray-600 text-sm sm:text-base">Total à payer</span>
+                      <span class="text-sm sm:text-base font-normal">{{ $commande->total_a_payer }} DH</span>
                     </div>
                   </div>
                 </div>
-                
-                <div class="col-span-2 justify-self-end">
-                  <h6 class="mb-2">Méthode de paiement</h6>
-                  <p class="text-gray-600 text-sm">Paiement à la livraison</p>
+                <div>
+                  <h6 class="mb-2 text-sm sm:text-base font-normal">Méthode de paiement</h6>
+                  <p class="text-sm sm:text-base text-gray-600">
+                    {{ $commande->paiement_type == 'a_la_livraison' ? 'Paiement à la livraison' : 'paiement en ligne' }}
+                  </p>
+                  @if ($commande->paiement_status == 1)
+                    <p class="mt-2 text-sm sm:text-base text-green-700 font-normal">Payé</p>
+                  @else
+                    <p class="mt-2 text-sm sm:text-base text-red-700 font-normal">Pas encore payé</p>
+                  @endif
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="col-span-2">
+        <div class="col-span-1">
           <div class="bg-[#f5f5f566] p-1 mb-3">
-            <h5 class="text-gray-900">INFORMATION DU CLIENT</h5>
+            <h5 class="text-gray-900 text-sm sm:text-base font-normal">INFORMATION DU CLIENT</h5>
           </div>
           
           <div class="space-y-3">
             <div>
-              <p class="mb-1">Client ID :</p>
-              <p class="text-gray-600 text-sm mb-2">BD54822D</p>
+              <p class="mb-1 text-sm sm:text-base font-normal">Nom Complet</p>
+              <p class="text-gray-600 text-sm sm:text-base mb-2">{{ $commande->client->utilisateur->name }}</p>
             </div>
             
             <div>
-              <p class="mb-1">Nom Complet</p>
-              <p class="text-gray-600 text-sm mb-2">Mohammed Alaoui</p>
+              <p class="mb-1 text-sm sm:text-base font-normal">Téléphone</p>
+              <p class="text-gray-600 text-sm sm:text-base mb-2">{{ $commande->client->utilisateur->phone }}</p>
             </div>
             
             <div>
-              <p class="mb-1">Téléphone</p>
-              <p class="text-gray-600 text-sm mb-2">06 12 34 56 78</p>
+              <p class="mb-1 text-sm sm:text-base font-normal">Email</p>
+              <p class="text-gray-600 text-sm sm:text-base mb-2">{{ $commande->client->utilisateur->email }}</p>
             </div>
             
             <div>
-              <p class="mb-1">Email</p>
-              <p class="text-gray-600 text-sm mb-2">m.alaoui@exemple.com</p>
-            </div>
-            
-            <div>
-              <p class="mb-1">Adresse de livraison</p>
-              <p class="text-gray-600 text-sm mb-2">123 Rue Hassan II, Quartier Maarif, Casablanca, 20100</p>
+              <p class="mb-1 text-sm sm:text-base font-normal">Adresse de livraison</p>
+              <p class="text-gray-600 text-sm sm:text-base mb-2">{{ $commande->client->utilisateur->adresse }}</p>
             </div>
           </div>
         </div>
       </div>
       
-      <div class="flex justify-end p-4 border-t mt-4 mr-2">
-        <button class="px-4 py-1.5 bg-gradient-to-b from-green-700 to-green-800 text-white rounded-md hover:from-green-800 hover:to-green-900 mr-3">
+      <div class="flex justify-end p-4 border-t mt-4 gap-2">
+        <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-green-700 to-green-800 text-white rounded-md hover:from-green-800 hover:to-green-900 text-sm sm:text-base">
           Accepter
         </button>
-        <button class="px-4 py-1.5 bg-gradient-to-b from-red-700 to-red-800 text-white rounded-md hover:from-red-800 hover:to-red-900">
+        <button class="w-auto px-4 py-1.5 bg-gradient-to-b from-red-700 to-red-800 text-white rounded-md hover:from-red-800 hover:to-red-900 text-sm sm:text-base">
           Refuser
         </button>
       </div>
     </div>
 </div>
+@endforeach
 @endsection
 @section('script')
     <script>
-        const detailsModal = document.getElementById('detailsModal');
-
-        function openModalDetails() {
-            detailsModal.classList.remove('hidden');
-            detailsModal.classList.add('flex');
+         function openModalDetails(commandeId) {
+            const modal = document.getElementById(`detailsModal${commandeId}`);
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
-        function closeModalDetails() {
-            detailsModal.classList.remove('flex');
-            detailsModal.classList.add('hidden');
+        function closeModalDetails(commandeId) {
+           const modal = document.getElementById(`detailsModal${commandeId}`);
+           modal.classList.remove('flex');
+           modal.classList.add('hidden');
         }
     </script>
 @endsection
