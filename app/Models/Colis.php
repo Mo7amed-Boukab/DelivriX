@@ -9,9 +9,9 @@ class Colis extends Model
 {
     use HasFactory;
 
-    protected $table = 'colis';
+    protected $table = 'colies';
     protected $fillable = [
-        'colis_number',
+        'colie_number',
         'poids',
         'longueur',
         'largeur',
@@ -19,21 +19,21 @@ class Colis extends Model
         'date_sortie',
         'date_arrivee_estime',
         'statut',
-        'commande_id'
+        'id_commande'
     ];
 
     public function commande()
     {
-        return $this->belongsTo(Commande::class);
+        return $this->belongsTo(Commande::class, 'id_commande');
     }
 
     public function adresses()
     {
-        return $this->hasMany(AdresseColis::class);
+        return $this->hasMany(AdresseColis::class, 'id_colie');
     }
 
     public function sauvegardes()
     {
-        return $this->hasMany(ColisSauvegarde::class);
+        return $this->hasMany(ColisSauvegarde::class, 'id_colie');
     }
 }

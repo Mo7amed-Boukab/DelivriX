@@ -36,10 +36,6 @@ class Commande extends Model
         return $this->belongsTo(Livreur::class, 'id_livreur');
     }
 
-    public function reductions()
-    {
-        return $this->hasMany(Reduction::class, 'id_commande');
-    }
 
     public function paiements()
     {
