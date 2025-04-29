@@ -56,6 +56,9 @@ Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->na
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::get('/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
  Route::get('/profile', [ProfileController::class, 'viewProfileClientPage'])->name('client.profile');
+ Route::put('/profile/update-info', [ProfileController::class, 'updateClientProfile'])->name('client.profile.update');
+Route::put('/profiile/update-pass', [ProfileController::class, 'updateClientPassword'])->name('client.profile.password');
+Route::put('/profile/photo', [ProfileController::class, 'updateClientPhoto'])->name('client.profile.photo');
 });
 
 Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
