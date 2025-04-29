@@ -10,4 +10,8 @@ class ProfileController extends Controller
    {
     return view("dashboard/livreur/profile");
    }
+   public function viewProfileClientPage()
+   {
+    return view("dashboard/client/profile");
+   }
 }
