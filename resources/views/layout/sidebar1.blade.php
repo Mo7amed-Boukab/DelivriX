@@ -63,23 +63,23 @@
  {{-- Partie 2 -------------------------------- --}}
   <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-400 uppercase">SYSTÈME</div>
   <div class="mt-2">
-    <a href="" class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d]0 hover:text-white">
+    <a href="" class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d] hover:text-white">
       <i class="fas fa-cog"></i>
       <span>Paramètres</span>
-    </a>    
-    <a href="" class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d] hover:text-white">
-      <i class="fas fa-headset"></i>
-      <span>Support</span>
-    </a>  
+    </a>   
+
+    <form action="{{ route('logout') }}" method="POST">
+     @csrf
+     <button
+        type="submit"
+        class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 hover:text-white">
+       <i class="fas fa-sign-out-alt"></i>
+       <span>Déconnexion</span>
+     </button>
+   </form> 
+ 
   </div>
 
-  <div class="mt-auto">
-    <a href="#" 
-       class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d] hover:text-white">
-      <i class="fas fa-sign-out-alt"></i>
-      <span>Déconnexion</span>
-    </a>
-  </div>
 </div>
 {{--  Button Sidebar : en cas de Responsive --------------------------------------------------- --}}
 <div class="fixed right-4 bottom-4 z-30 lg:hidden">

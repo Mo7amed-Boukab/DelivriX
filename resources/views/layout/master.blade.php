@@ -11,13 +11,15 @@
  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
-<body class="flex h-screen  font-sans bg-gray-50">
+<body class="flex h-screen font-sans bg-gray-50">
 
 
    @if(auth()->check() && auth()->user()->role == 'administrateur')
    @include('layout.sidebar1')
-   @else 
+   @elseif(auth()->check() && auth()->user()->role == 'livreur')
      @include('layout.sidebar2')
+   @else
+     @include('layout.navbar')  
    @endif
       
     @yield('main')

@@ -51,7 +51,7 @@
       <a href="{{route('livreur.calendrie')}}" 
          class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d] hover:text-white">
         <i class="fas fa-calendar-days"></i>
-        <span>Calendrier</span>
+        <span>Date Livraison</span>
       </a>
       
       <a href="{{route('livreur.paiements')}}" 
@@ -69,11 +69,15 @@
       <i class="fas fa-bell"></i>
       <span>Notifications</span>
     </a>
-    <a href="#" 
-       class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 rounded-md hover:bg-[#0d0d0d] hover:text-white">
-      <i class="fas fa-sign-out-alt"></i>
-      <span>Déconnexion</span>
-    </a>
+    <form action="{{ route('logout') }}" method="POST">
+     @csrf
+     <button
+        type="submit"
+        class="flex gap-3 items-center px-6 py-3 m-2 text-gray-300 hover:text-white">
+       <i class="fas fa-sign-out-alt"></i>
+       <span>Déconnexion</span>
+     </button>
+   </form> 
   </div>
   {{-- User Profile ---------------------------------------------------------------- --}}
   <div class="flex justify-between items-center p-4 mt-auto border-t border-gray-800">

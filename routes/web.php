@@ -53,6 +53,7 @@ Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->na
 
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::get('/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
+ Route::get('/profile', [ProfileController::class, 'viewProfileClientPage'])->name('client.profile');
 });
 
 Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
