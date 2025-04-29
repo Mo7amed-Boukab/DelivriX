@@ -48,6 +48,7 @@ Route::put('/colis/{colis}/update-status', [ColieController::class, 'updateColie
 Route::get('/calendrie', [CalendrieController::class, 'viewCalendriePage'])->name('livreur.calendrie');
 Route::post('/calendrie/rendez-vous', [CalendrieController::class, 'ajouteRendezVous'])->name('livreur.rendez-vous.store');
 Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage'])->name('livreur.paiements');
+Route::post('/paiements/ajouter', [PaiementsController::class, 'ajoutePaiement'])->name('livreur.paiements.store');
 Route::get('/notifications', [NotificationsController::class, 'viewNotificationsLivreurPage'])->name('livreur.notifications');
 Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->name('livreur.profile');
 });
