@@ -17,6 +17,7 @@ class Colis extends Model
         'largeur',
         'hauteur',
         'date_sortie',
+        'heure_sortie',
         'date_arrivee_estime',
         'statut',
         'id_commande'
@@ -25,11 +26,6 @@ class Colis extends Model
     public function commande()
     {
         return $this->belongsTo(Commande::class, 'id_commande');
-    }
-
-    public function adresses()
-    {
-        return $this->hasMany(AdresseColis::class, 'id_colie');
     }
 
     public function sauvegardes()

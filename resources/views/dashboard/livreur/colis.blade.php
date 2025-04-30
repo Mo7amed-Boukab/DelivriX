@@ -135,10 +135,10 @@
          <div class="space-y-4">
            <div>
              <label class="block mb-1 text-sm text-gray-700">Commande associée</label>
-             <select name="commande_id" class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow">
+             <select name="commande_id" required class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow">
                <option value="">Sélectionner une commande</option>
                @foreach($commandes as $commande)
-                 <option value="{{ $commande->id }}">CMD-{{ $commande->commande_number }} - {{ $commande->client->utilisateur->name }}</option>
+                 <option value="{{ $commande->id }}">{{ $commande->commande_number }} - {{ $commande->client->utilisateur->name }}</option>
                @endforeach
              </select>
            </div>
@@ -149,6 +149,7 @@
                <input
                  type="number"
                  name="poids"
+                 step="0.01"
                  class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                  placeholder="Poids"
                  required
@@ -160,6 +161,7 @@
                <input
                  type="number"
                  name="hauteur"
+                 step="0.01"
                  class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                  placeholder="Hauteur"
                  required
@@ -173,6 +175,7 @@
                <input
                  type="number"
                  name="longueur"
+                 step="0.01"
                  class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                  placeholder="Longueur"
                  required
@@ -184,6 +187,7 @@
                <input
                  type="number"
                  name="largeur"
+                 step="0.01"
                  class="px-4 py-2 w-full text-sm text-gray-600 bg-transparent rounded-md border border-gray-200 shadow-sm transition duration-300 placeholder:text-gray-400 ease focus:outline-none focus:border-gray-400 hover:border-gray-300 focus:shadow"
                  placeholder="Largeur"
                  required
@@ -253,7 +257,7 @@
          <div>
            <p class="mb-1 text-sm font-normal sm:text-base">Commande associée</p>
            <p class="mb-2 text-sm text-gray-600 sm:text-base">
-                CMD-{{ $colie->commande->commande_number }} - {{ $colie->commande->client->utilisateur->name }}
+                {{ $colie->commande->commande_number }} - {{ $colie->commande->client->utilisateur->name }}
            </p>
          </div>
          

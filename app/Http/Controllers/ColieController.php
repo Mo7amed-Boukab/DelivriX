@@ -10,7 +10,7 @@ class ColieController extends Controller
 {
    public function viewColisPage()
    {
-       $commandes = Commande::where('livraison_status', 'accepter')->whereDoesntHave('colis')->get();
+       $commandes = Commande::where('livraison_statut', 'accepter')->whereDoesntHave('colis')->get();
        $colis = Colis::with(['commande.client.utilisateur'])->get();
        return view('dashboard.livreur.colis', compact('commandes', 'colis'));
    }
