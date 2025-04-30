@@ -23,7 +23,7 @@
 
         {{-- ---------------------------------  Liste des rendez vous de Livraison -------------------------------- --}}
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-         @foreach($colisLivraison as $rdv)
+         @forelse($colisLivraison as $rdv)
             <div class="px-4 py-6 bg-white rounded-lg border border-gray-200 shadow-sm">
                 <div class="flex justify-between items-start mb-6">
                     <div>
@@ -47,7 +47,11 @@
                     </div>
                 </div>          
             </div>
-            @endforeach   
+               @empty
+                 <div class="text-gray-500 text-left p-4">
+                     Aucun rendez-vous de livraison pour le moment.
+                 </div>
+            @endforelse  
         </div>
     </div>
 </div>
@@ -72,7 +76,7 @@
                          <option value="">Sélectionner un colis</option>
                          @foreach($colis as $colie)
                              <option value="{{ $colie->id }}">
-                                 Colis #{{ $colie->colie_number }} - {{ $colie->commande->client->name }} 
+                                 {{ $colie->colie_number }} - {{ $colie->commande->client->utilisateur->name }} 
                              </option>
                          @endforeach
                      </select>
