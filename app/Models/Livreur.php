@@ -11,10 +11,10 @@ class Livreur extends Model
 
     protected $table = 'livreurs';
     protected $fillable = [
+        'id',
         'nom_entreprise',
         'nom_livreur',
-        'statut',
-        'utilisateur_id'
+        'statut'
     ];
 
     public function utilisateur()
@@ -24,7 +24,7 @@ class Livreur extends Model
 
     public function commandes()
     {
-        return $this->hasMany(Commande::class);
+        return $this->hasMany(Commande::class, 'id_livreur');
     }
 }
 

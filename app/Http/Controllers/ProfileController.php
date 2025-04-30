@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use App\Models\Client;
-use App\Models\User;
 
 class ProfileController extends Controller
 {
    public function viewProfileLivreurPage()
    {
-    return view("dashboard/livreur/profile");
+    $user = Auth::user();
+    $livreur = $user->livreur;
+    
+    return view("dashboard/livreur/profile", compact('user', 'livreur'));
    }
    public function viewProfileClientPage()
    {
@@ -43,7 +45,7 @@ class ProfileController extends Controller
    }
 
 
-   public function updateClientPassword(Request $request)
+   public function updatePassword(Request $request)
    {
        $user = Auth::user();
 
@@ -65,4 +67,59 @@ class ProfileController extends Controller
        }
    }
 
+   public function updatePhoto(Request $request)
+   {
+       $user = Auth::user();
+
+       $request->validate([
+           'photo' => ['required', 'image', 'max:2048'],
+       ]);
+
+       try {
+           if ($user->photo) {
+               Storage::delete($user->photo);
+           }
+
+           $path = $request->file('photo')->store('profile-photos', 'public');      
+           $user->update(['photo' => $path]);
+
+           return redirect()->back()->with('success', 'Votre photo de profil a été mise à jour avec succès.');
+       } catch (\Exception $e) {
+           return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour de votre photo de profil.');
+       }
+   }
+   public function updateLivreurProfile(Request $request)
+   {
+       $user = Auth::user();
+       $livreur = $user->livreur;
+
+       $data = $request->validate([
+           'nom_entreprise' => ['required', 'string', 'max:255'],
+           'name' => ['required', 'string', 'max:255'],
+           'email' => ['required', 'email', Rule::unique('utilisateurs')->ignore($user->id)],
+           'phone' => ['required', 'string', 'max:20'],
+           'statut' => ['required', 'in:disponible,indisponible'],
+           'ville' => ['required', 'string', 'max:50'],
+           'adresse' => ['required', 'string', 'max:255'],
+       ]);
+
+       try {
+           $user->update([
+               'name' => $data['name'],
+               'email' => $data['email'],
+               'phone' => $data['phone'],
+               'ville' => $data['ville'],
+               'adresse' => $data['adresse'],
+           ]);
+
+           $livreur->update([
+               'nom_entreprise' => $data['nom_entreprise'],
+               'statut' => $data['statut'],           
+           ]);
+
+           return redirect()->back()->with('success', 'Vos informations ont été mises à jour avec succès.');
+       } catch (\Exception $e) {
+           return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour de vos informations.');
+       }
+   }
 }

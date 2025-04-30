@@ -51,14 +51,17 @@ Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage']
 Route::post('/paiements/ajouter', [PaiementsController::class, 'ajoutePaiement'])->name('livreur.paiements.store');
 Route::get('/notifications', [NotificationsController::class, 'viewNotificationsLivreurPage'])->name('livreur.notifications');
 Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->name('livreur.profile');
+Route::put('/profile-update-info', [ProfileController::class, 'updateLivreurProfile'])->name('livreur.profile.update');
+Route::put('/profile/update-pass', [ProfileController::class, 'updatePassword'])->name('livreur.profile.password');
+Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('livreur.profile.photo');
 });
 
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::get('/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
  Route::get('/profile', [ProfileController::class, 'viewProfileClientPage'])->name('client.profile');
  Route::put('/profile/update-info', [ProfileController::class, 'updateClientProfile'])->name('client.profile.update');
-Route::put('/profiile/update-pass', [ProfileController::class, 'updateClientPassword'])->name('client.profile.password');
-Route::put('/profile/photo', [ProfileController::class, 'updateClientPhoto'])->name('client.profile.photo');
+Route::put('/profiile/update-pass', [ProfileController::class, 'updatePassword'])->name('client.profile.password');
+Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('client.profile.photo');
 });
 
 Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
