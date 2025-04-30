@@ -11,13 +11,15 @@ class Paiement extends Model
 
     protected $table = 'paiements';
     protected $fillable = [
+        'id_colie',
+        'date_paiement',
         'montant',
-        'commande_id'
+        'details'
     ];
 
-    public function commande()
+    public function colis()
     {
-        return $this->belongsTo(Commande::class);
+        return $this->belongsTo(Colis::class, 'id_colie');
     }
 }
 
