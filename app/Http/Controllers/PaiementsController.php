@@ -11,7 +11,7 @@ class PaiementsController extends Controller
 {
    public function viewPaiementLivreurPage()
    {
-        $colis = Colis::with(['commande.client.utilisateur'])->whereHas('commande', function ($condition) {
+        $colis = Colis::with(['commande.client.utilisateur'])->whereNotNull('date_sortie')->whereHas('commande', function ($condition) {
             $condition->where('paiement_status', 0);
         })->get();
 
@@ -28,12 +28,12 @@ class PaiementsController extends Controller
           ]);
            $colie = Colis::findOrFail($request->id_colie);
            
-           $dateColie = Carbon::parse($colie->date_creation);
+           $dateColie = Carbon::parse($colie->date_sortie);
            $datePaiement = Carbon::parse($request->date_paiement);
     
            if ( $datePaiement <= $dateColie) {
             return redirect()->back()
-            ->with('error', 'La date de paiement doit être supérieure à la date de création du colis');
+            ->with('error', 'La date de paiement doit être supérieure à la date de livraison du colis');
           }
        try {   
            $montantPaiement = $colie->commande->total_a_payer;
