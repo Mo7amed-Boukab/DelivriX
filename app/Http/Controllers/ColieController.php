@@ -57,6 +57,10 @@ class ColieController extends Controller
      $colis->update([
          'statut' => $request->colisStatut
      ]);
+     if($request->colisStatut === "livree"){
+        $colis->commande->commande_statut = "livree";
+        $colis->commande->save();
+     }
 
         return redirect()->route('livreur.colis')->with('success', 'Colis Modifier avec succès.');
 
