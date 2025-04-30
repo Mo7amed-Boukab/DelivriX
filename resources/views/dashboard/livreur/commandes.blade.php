@@ -242,7 +242,13 @@
           </div>
         </div>
       </div>
-      @if($commande->livraison_status === 'en_attente')
+
+      @if($commande->livraison_statut === "refuser")
+      <div class="flex items-center justify-between px-4 py-4 lg:px-6 border-t mt-4 gap-2">
+         <p class="text-sm text-red-700">Vous avez refuser la livraison de cette commande</p>
+          <button class="px-4 py-1 bg-gradient-to-b from-red-800 to-red-900 text-white text-sm font-normal rounded hover:from-red-900 hover:to-red-950">Supprimer</button>
+      </div>
+      @elseif($commande->livraison_statut === 'en_attente')
       <div class="flex justify-end p-4 border-t mt-4 gap-2">
        <form method="POST" action="{{ route('commandes.accepter', $commande->id) }}">
           @csrf

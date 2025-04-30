@@ -453,14 +453,14 @@
                         <h5 class="text-gray-900">INFORMATION DE LIVRAISON</h5>
                     </div>
 
-                    @if ($commande->id_livreur)
+                    @if ($commande->id_livreur && $commande->livraison_statut == 'accepter')
                         <div class="grid grid-cols-3 gap-5">
                             <div>
                                 <p class="mb-1">Entreprise de Livraison</p>
                                 <p class="mb-2 text-sm text-gray-600">{{ $commande->livreur->nom_entreprise }}</p>
 
                                 <p class="mb-1">Nom du Livreur</p>
-                                <p class="text-sm text-gray-600">{{ $commande->livreur->nom_livreur }}</p>
+                                <p class="text-sm text-gray-600">{{ $commande->livreur->utilisateur->name }}</p>
                             </div>
 
                             <div>
@@ -474,8 +474,13 @@
                             <div>
                                 <p class="mb-1">Statut de Livraison</p>
                                 <div class="flex items-center">
+                                 @if($commande->livreur->statut ==="disponible")
                                     <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
                                     <span class="mb-2 text-sm text-gray-600">{{ $commande->livreur->statut }}</span>
+                                 @else   
+                                    <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
+                                    <span class="mb-2 text-sm text-gray-600">{{ $commande->livreur->statut }}</span>
+                                 @endif
                                 </div>
 
                                 <p class="mb-1">Date de livraison estimée</p>
@@ -489,10 +494,13 @@
                                 <select name="livreur_id" class="px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400">
                                     <option value="">Sélectionnez un livreur</option>
                                     @foreach ($livreurs as $livreur)
-                                        <option value="{{ $livreur->id }}">{{ $livreur->nom_livreur }} - {{ $livreur->nom_entreprise }}</option>
+                                        <option value="{{ $livreur->id }}" @if($commande->id_livreur === $livreur->id ) selected @endif>{{ $livreur->utilisateur->name }} - {{ $livreur->nom_entreprise }}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            @if($commande->livraison_statut === "refuser")
+                            <p class="mt-1 text-sm text-red-700">"{{ $commande->livreur->utilisateur->name }}" n'accepte pas la livraison du commande</p>
+                            @endif
                             <div class="flex justify-end mt-4 space-x-3">
                                 <button type="button" onclick="closeModalDetails({{ $commande->id }})"
                                     class="px-4 py-2 text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200">

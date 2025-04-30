@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\sendEmail;
+use Illuminate\Support\Facades\Auth;
 
 class CommandesController extends Controller
 {
    public function viewCommandesLivreurPage()
    {
-      $commandes = Commande::with(['client.utilisateur'])->latest()->get();
+      $livreurId = Auth::user()->livreur->id;   
+      $commandes = Commande::where('id_livreur', $livreurId)->with(['client.utilisateur'])->latest()->get();
       return view("dashboard/livreur/commandes", compact('commandes'));
    }
 
@@ -112,6 +114,7 @@ class CommandesController extends Controller
        try {
            $commande = Commande::findOrFail($id);
            $commande->id_livreur = $request->livreur_id;
+           $commande->livraison_statut = "en_attente";
            $commande->save();
 
            return redirect()->route('admin.commandes')
@@ -125,8 +128,10 @@ class CommandesController extends Controller
    public function accepterLivraison(Commande $commande)
     {   
         $commande->update([
-            'livraison_status' => 'accepter'
+            'livraison_statut' => 'accepter',
+            'commande_statut' => 'en_livraison'
         ]);
+
 
         return redirect()->route('livreur.commandes')
             ->with('success', 'Commande est acceptée.');
@@ -135,7 +140,7 @@ class CommandesController extends Controller
     public function refuserLivraison(Commande $commande)
     {
         $commande->update([
-            'livraison_status' => 'refuser'
+            'livraison_statut' => 'refuser'
         ]);
 
         return redirect()->route('livreur.commandes')

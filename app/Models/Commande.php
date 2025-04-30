@@ -19,7 +19,7 @@ class Commande extends Model
         'total_a_payer',
         'paiement_type',
         'paiement_status',
-        'livraison_status',
+        'livraison_statut',
         'commande_statut',
         'date_commande',
         'id_client',
@@ -36,19 +36,8 @@ class Commande extends Model
         return $this->belongsTo(Livreur::class, 'id_livreur');
     }
 
-
-    public function paiements()
-    {
-        return $this->hasMany(Paiement::class, 'id_commande');
-    }
-
     public function colis()
     {
         return $this->hasMany(Colis::class, 'id_commande');
-    }
-
-    public function historiqueCommandes()
-    {
-        return $this->hasMany(HistoriqueCommande::class);
     }
 }
