@@ -103,14 +103,14 @@
                              </td>
                              <td class="px-6 py-4 whitespace-nowrap">
                                  <div class="flex items-center">
-                                     @if ($commande->commande_statut == 'confirmer')
+                                     @if ($commande->commande_statut == 'livree')
                                          <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                         <span class="text-xs">Confirmée</span>
-                                     @elseif($commande->commande_statut == 'annulee')
-                                         <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
-                                         <span class="text-xs">Annulée</span>
-                                     @else
+                                         <span class="text-xs">Livrée</span>
+                                     @elseif($commande->commande_statut == 'en_livraison')
                                          <span class="mr-2 w-2.5 h-2.5 bg-yellow-700 rounded-full"></span>
+                                         <span class="text-xs">En livraison</span>
+                                     @else
+                                         <span class="mr-2 w-2.5 h-2.5 bg-blue-900 rounded-full"></span>
                                          <span class="text-xs">En attente</span>
                                      @endif
                                  </div>
