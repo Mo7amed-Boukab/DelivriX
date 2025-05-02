@@ -1,194 +1,139 @@
 @extends('layout.master')
 @section('main')
-    <main class="bg-white pt-24 px-4 mx-auto w-full sm:px-6 lg:px-28">
+    <main class="px-4 pt-24 mx-auto w-full bg-white sm:px-6 lg:px-28">
         <div class="py-6 mb-8 bg-white border-b-2 border-gray-100">
          <div class="flex justify-between items-center">
           <div class="flex items-center">
 
               <div class="mr-4">
-                  <div class="w-30 h-32 rounded-4 bg-gray-200 overflow-hidden border-2 border-gray-300">
-                      <img src="/api/placeholder/100/100" alt="Photo de profil" class="w-full h-full object-cover" />
+                  <div class="overflow-hidden h-32 bg-gray-200 border-2 border-gray-300 w-30 rounded-4">
+                      <img src="{{ asset('storage/' . $user->photo) }}" alt="Photo de profil" class="object-cover w-full h-full" />
                   </div>
+          
               </div>
 
               <div>
-                  <h1 class="text-2xl font-bold text-gray-800">mohamed boukab</h1>
-                  <p class="mt-1 text-sm text-gray-600">mohamedboukab@gmail.com</p>
+                  <h1 class="text-2xl font-bold text-gray-800">{{$user->name}}</h1>
+                  <p class="mt-1 text-sm text-gray-600">{{$user->email}}</p>
               </div>
           </div>
           
           <div class="flex flex-col items-end">
-              <span class="text-sm font-medium text-gray-700">Mardi, 29 avril 2025</span>
-              <span class="text-xs text-gray-600">Dernière connexion aujourd'hui à 10:15</span>
+              <span class="text-sm font-medium text-gray-700"> {{ $today->translatedFormat('l, d F Y') }}</span>
+              <span class="text-xs text-gray-600">Dernière connexion aujourd'hui à {{ now()->format('H:i') }}</span>
           </div>
       </div>
         </div>
         
         {{-- --------------------------------- Bar de Recherche sur Colie ------------------------------- --}}
-        <div class=" rounded-lg p-6 mb-8">
-            <div class="max-w-3xl mx-auto">
-                <h2 class="text-lg font-medium text-gray-800 mb-4">Rechercher un colis</h2>
-                <div class="flex gap-4">
-                    <div class="flex-1">
-                        <input type="text"
-                            placeholder="Entrez le numéro du colis (ex: CLS-12345678)"
-                            class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none"
-                        >
-                    </div>
-                    <button class="px-6 py-2 bg-gradient-to-b from-gray-800 to-gray-900 text-white rounded hover:from-gray-900 hover:to-gray-950">
-                        Rechercher
-                    </button>
-                </div>
-            </div>
-        </div>
+        <form action="{{ route('colis.recherche') }}" method="GET" class="p-6 mb-8 rounded-lg">
+         <div class="mx-auto max-w-3xl">
+             <h2 class="mb-4 text-lg font-medium text-gray-800">Rechercher un colis</h2>
+             <div class="flex gap-4">
+                 <div class="flex-1">
+                     <input
+                         type="text"
+                         name="colieNumber"
+                         placeholder="Entrez le numéro du colis (ex: CLS-12345678)"
+                         class="px-4 py-2 w-full rounded border border-gray-300 focus:outline-none"
+                         required
+                     >
+                 </div>
+                 <button
+                     type="submit"
+                     class="px-6 py-2 text-white bg-gradient-to-b from-gray-900 rounded to-gray-950 hover:from-gray-950 hover:to-gray-950"
+                 >
+                     Rechercher
+                 </button>
+             </div>
+         </div>
+     </form>
+     
+     @if ($colis!=null)
+     
+     <div class="p-6 mx-auto mb-8 max-w-3xl bg-white rounded-lg border border-gray-100 shadow-md">
+      <div class="flex flex-col justify-between items-start pb-4 mb-6 border-b border-gray-200 md:flex-row md:items-center">
+          <div>
+              <h2 class="text-xl font-bold text-gray-800">Colie ID : <span class="font-bold text-gray-900">{{$colis->colie_number}}</span></h2>
+              <p class="text-sm text-gray-600">Date de création: 27 Juillet, 2025</p>
+          </div>
+          <div class="flex gap-3 items-center mt-3 md:mt-0">
 
-      
+                <a href="{{ route('colis.pdf', $colis->id) }}" class="p-2 text-gray-500 transition-colors hover:text-gray-700" title="Télécharger PDF">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                </a>
+          </div>
+      </div>
+     
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+     
+          <div class="p-4 bg-gray-50 rounded-lg">
+              <h3 class="mb-4 text-xs font-medium text-gray-500 uppercase">INFORMATION DU COLIE</h3>
+              
+              <div class="space-y-4">
+                  <div class="grid grid-cols-2 gap-2">
+                      <div>
+                          <p class="text-sm font-medium text-gray-700">Poids</p>
+                          <p class="text-sm text-gray-600">{{$colis->poids}} kg</p>
+                      </div>
+                      <div>
+                          <p class="text-sm font-medium text-gray-700">Dimensions</p>
+                          <p class="text-sm text-gray-600">{{$colis->longueur}} × {{$colis->largeur}} × {{$colis->hauteur}} cm</p>
+                      </div>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Commande associée</p>
+                      <p class="text-sm text-gray-600">{{ $colis->commande->commande_number }} - {{ $colis->commande->client->utilisateur->name }} </p>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Adresse de livraison</p>
+                      <p class="text-sm text-gray-600">{{ $colis->commande->client->utilisateur->adresse }} </p>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Méthode de paiement</p>
+                      <p class="text-sm text-gray-600">{{$colis->commande->paiement_type == 'a_la_livraison' ? "Paiement à la livraison" : " Paiement en ligne"}}</p>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="p-4 bg-gray-50 rounded-lg">
+              <h3 class="mb-4 text-xs font-medium text-gray-500 uppercase">INFORMATION DU LIVREUR</h3>
+              
+              <div class="space-y-4">
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Entreprise de Livraison</p>
+                      <p class="text-sm text-gray-600">{{$colis->commande->livreur->nom_entreprise}}</p>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Nom Livreur</p>
+                      <p class="text-sm text-gray-600">{{$colis->commande->livreur->utilisateur->name}}</p>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Téléphone</p>
+                      <p class="text-sm text-gray-600">{{$colis->commande->livreur->utilisateur->phone}}</p>
+                  </div>
+                  
+                  <div>
+                      <p class="text-sm font-medium text-gray-700">Email</p>
+                      <p class="text-sm text-gray-600">{{$colis->commande->livreur->utilisateur->email}}</p>
+                  </div>
+              </div>
+          </div>
 
-       {{-- ------------------------------- Sections des Colies Sauvegardé -------------------------------- --}}
-       <div class="mb-8">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Mes Colis Sauvegardés</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-         {{-- ----------------------------------------- Colie -------------------------------------- --}}
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                <div class="p-5">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-800">Colis ID : <span class="text-gray-900 font-bold">LF45436</span></h3>
-                            <p class="text-sm text-gray-600">Date : 27 Juillet, 2025</p>
-                        </div>
-                        <button class="text-gray-500 hover:text-gray-700">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
-                        <div>
-                            <h4 class="text-xs uppercase text-gray-500 font-medium">INFORMATION DU COLIS</h4>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Poids</p>
-                                <p class="text-sm text-gray-600">2.5kg</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Dimensions</p>
-                                <p class="text-sm text-gray-600">30 × 20 × 15 cm</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Date d'arrivée estimée</p>
-                                <p class="text-sm text-gray-600">16 Avril, 2025</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Statut actuel</p>
-                                <div class="flex items-center mt-1">
-                                    <span class="flex w-3 h-3 bg-yellow-400 rounded-full mr-2"></span>
-                                    <span class="text-sm text-gray-600">En route</span>
-                                </div>
-                                <p class="text-sm text-red-500 mt-1">Pas encore payé</p>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="text-xs uppercase text-gray-500 font-medium">INFORMATION DU LIVREUR</h4>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Entreprise de Livraison</p>
-                                <p class="text-sm text-gray-600">ATP Transport</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Nom Livreur</p>
-                                <p class="text-sm text-gray-600">Mohammed Alaoui</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Téléphone</p>
-                                <p class="text-sm text-gray-600">06 12 34 56 78</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-5 flex justify-end">
-                        <a href="#" class="px-4 py-1 bg-gray-800 text-white rounded hover:bg-gray-900 text-sm font-medium">Détails</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Colis 2 -->
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                <div class="p-5">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-800">Colis ID : <span class="text-gray-900 font-bold">LF32198</span></h3>
-                            <p class="text-sm text-gray-600">Date : 15 Avril, 2025</p>
-                        </div>
-                        <button class="text-gray-500 hover:text-gray-700">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
-                        <div>
-                            <h4 class="text-xs uppercase text-gray-500 font-medium">INFORMATION DU COLIS</h4>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Poids</p>
-                                <p class="text-sm text-gray-600">1.8kg</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Dimensions</p>
-                                <p class="text-sm text-gray-600">25 × 18 × 12 cm</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Date d'arrivée estimée</p>
-                                <p class="text-sm text-gray-600">5 Mai, 2025</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Statut actuel</p>
-                                <div class="flex items-center mt-1">
-                                    <span class="flex w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                                    <span class="text-sm text-gray-600">Livré</span>
-                                </div>
-                                <p class="text-sm text-green-600 mt-1">Payé</p>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="text-xs uppercase text-gray-500 font-medium">INFORMATION DU LIVREUR</h4>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Entreprise de Livraison</p>
-                                <p class="text-sm text-gray-600">Express Maroc</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Nom Livreur</p>
-                                <p class="text-sm text-gray-600">Ahmed Benjelloun</p>
-                            </div>
-                            
-                            <div class="mt-2">
-                                <p class="text-sm font-medium text-gray-700">Téléphone</p>
-                                <p class="text-sm text-gray-600">06 98 76 54 32</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-5 flex justify-end">
-                        <a href="#" class="px-4 py-1 bg-gray-800 text-white rounded hover:bg-gray-900 text-sm font-medium">Détails</a>
-                    </div>
-                </div>
-           </div>
-       </div>
-   </div>
+      </div>
+     </div>
+     @else
+     <p class="flex justify-center text-md text-gray-700">Pas de colie trouvé par ce ID 
+       <span class="px-1 font-medium">'{{$colieNumber}}'</span>
+      </p>
+     @endif
+ 
 </main>
 @endsection 

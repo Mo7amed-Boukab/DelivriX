@@ -62,6 +62,8 @@ Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::put('/profile/update-info', [ProfileController::class, 'updateClientProfile'])->name('client.profile.update');
 Route::put('/profiile/update-pass', [ProfileController::class, 'updatePassword'])->name('client.profile.password');
 Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('client.profile.photo');
+Route::get('/recherche', [ClientController::class, 'rechercherColier'])->name('colis.recherche');
+Route::get('/colis/{id}/pdf', [ClientController::class, 'downloadColisPdf'])->name('colis.pdf');
 });
 
 Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');

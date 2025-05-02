@@ -34,7 +34,7 @@
          </div>
          <form action="{{ route('logout') }}" method="POST">
            @csrf
-           <button class="bg-gray-900 hover:bg-gray-950 text-white py-2 px-4 rounded">
+           <button class="bg-gradient-to-b from-gray-900 to-gray-950 hover:from-gray-950 hover:to-black text-white py-2 px-4 rounded">
                Déconnexion
            </button>
          </form>
