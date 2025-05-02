@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use App\Models\Colis;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,6 +64,8 @@ class ColieController extends Controller
          'statut' => $request->colisStatut
      ]);
      if($request->colisStatut === "livree"){
+        $colis->date_arrivee = Carbon::now(); 
+        $colis->save();
         $colis->commande->commande_statut = "livree";
         $colis->commande->save();
      }

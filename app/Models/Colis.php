@@ -18,7 +18,7 @@ class Colis extends Model
         'hauteur',
         'date_sortie',
         'heure_sortie',
-        'date_arrivee_estime',
+        'date_arrivee',
         'statut',
         'id_commande',
         'id_livreur'

@@ -73,20 +73,20 @@
                                 <div class="flex items-center">
                                     <span class="text-sm text-gray-600">Total Commandes Acceptées</span>
                                 </div>
-                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->where('livraison_status', 'accepter')->count() }}</span>
+                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->count()}}</span>
                             </div>
 
                             <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                                 <div class="flex items-center">
                                     <span class="text-sm text-gray-600">Colis en Livraison</span>
                                 </div>
-                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->where('livraison_status', 'en_livraison')->count() }}</span>
+                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->where('commande_statut', 'en_livraison')->count() }}</span>
                             </div>
                             <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                                 <div class="flex items-center">
                                     <span class="text-sm text-gray-600">Colis Livrés</span>
                                 </div>
-                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->where('livraison_status', 'livree')->count() }}</span>
+                                <span class="text-lg font-semibold text-gray-800">{{ $livreur->commandes->where('commande_statut', 'livree')->count() }}</span>
                             </div>
                         </div>
                     </div>
