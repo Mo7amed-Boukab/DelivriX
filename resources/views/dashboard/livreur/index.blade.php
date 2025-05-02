@@ -29,18 +29,13 @@
           <div class="flex justify-between items-center mb-2">
             <span class="text-gray-600 text-sm">Total Revenus</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">Aujourd'hui</span>
-            
           </div>
           <div class="h-px bg-gray-200 mb-4"></div>
           <div class="flex justify-between items-center mb-4">
-         
-            <span class="text-2xl font-bold">3500 DH</span>
-            <span class="text-red-700 text-sm flex items-center">
-              <i class="fas fa-arrow-down mr-1"></i>1.5%
-            </span>
+            <span class="text-2xl font-bold">{{ number_format($todayRevenue, 2) }} DH</span>
           </div>
           <div class="flex justify-between items-center">
-           <span class="text-gray-600 text-sm">22 550 DH</span>
+            <span class="text-gray-600 text-sm">{{ number_format($monthlyRevenue, 2) }} DH</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">ce-mois-ci</span>
           </div>
         </div>
@@ -52,31 +47,25 @@
           </div>
           <div class="h-px bg-gray-200 mb-4"></div>
           <div class="flex justify-between items-center mb-4">
-            <span class="text-2xl font-bold">25 colie</span>
-            <span class="text-green-700 text-sm flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i>2.5%
-            </span>
+            <span class="text-2xl font-bold">{{ $todayDeliveredColis }} colie</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-gray-600 text-sm">250 colie</span>
+            <span class="text-gray-600 text-sm">{{ $monthlyDeliveredColis }} colie</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">ce-mois-ci</span>
           </div>
         </div>
 
         <div class="bg-white rounded-lg shadow-sm p-5">
           <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-600 text-sm">Total Colie annuler</span>
+            <span class="text-gray-600 text-sm">Total Colie en livraison</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">Aujourd'hui</span>
           </div>
           <div class="h-px bg-gray-200 mb-4"></div>
           <div class="flex justify-between items-center mb-4">
-            <span class="text-2xl font-bold">25 colie</span>
-            <span class="text-green-700 text-sm flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i>2.5%
-            </span>
+            <span class="text-2xl font-bold">{{ $todayColisInDelivery }} colie</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-gray-600 text-sm">250 colie</span>
+            <span class="text-gray-600 text-sm">{{ $monthlyColisInDelivery }} colie</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">ce-mois-ci</span>
           </div>
         </div>
@@ -88,13 +77,10 @@
           </div>
           <div class="h-px bg-gray-200 mb-4"></div>
           <div class="flex justify-between items-center mb-4">
-            <span class="text-2xl font-bold">50</span>
-            <span class="text-green-700 text-sm flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i>2.5%
-            </span>
+            <span class="text-2xl font-bold">{{ $todayTotalOrders }} commande</span>
           </div>
           <div class="flex justify-between items-center">
-            <span class="text-gray-600 text-sm">265 commande</span>
+            <span class="text-gray-600 text-sm">{{ $monthlyTotalOrders }} commande</span>
             <span class="text-xs bg-gray-100 px-2 py-1 rounded">ce-mois-ci</span>
           </div>
         </div>
