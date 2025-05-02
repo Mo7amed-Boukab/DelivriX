@@ -36,7 +36,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect()->intended(route($this->redirectBasedOnRole(Auth::user()->role)));
+        return redirect()->route($this->redirectBasedOnRole(Auth::user()->role));
     }
 
     public function login(LoginRequest $request)
@@ -46,7 +46,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route($this->redirectBasedOnRole(Auth::user()->role)));
+            return redirect()->route($this->redirectBasedOnRole(Auth::user()->role));
         }
 
         return back()->withErrors([
@@ -88,7 +88,7 @@ class AuthController extends Controller
 
        if ($checkUser) {
            Auth::login($checkUser);
-           return redirect()->intended(route($this->redirectBasedOnRole(Auth::user()->role)));
+           return redirect()->route($this->redirectBasedOnRole(Auth::user()->role));
        } else {
            return redirect()->route('login.page')->withErrors(['email' => 'Aucun compte n\'est associé à cette adresse e-mail Google.']);
        }
