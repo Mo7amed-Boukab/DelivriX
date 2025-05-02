@@ -129,11 +129,12 @@
 
       </div>
      </div>
-     @else
-     <p class="flex justify-center text-md text-gray-700">Pas de colie trouvé par ce ID 
-       <span class="px-1 font-medium">'{{$colieNumber}}'</span>
+     @elseif(!empty($colieNumber))
+      <p class="flex justify-center text-md text-gray-700">
+          Pas de colie trouvé par ce ID 
+          <span class="px-1 font-medium">'{{$colieNumber}}'</span>
       </p>
      @endif
- 
+     
 </main>
 @endsection 
