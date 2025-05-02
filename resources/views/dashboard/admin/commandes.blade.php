@@ -472,7 +472,7 @@
                             </div>
 
                             <div>
-                                <p class="mb-1">Statut de Livraison</p>
+                                <p class="mb-1">Statut</p>
                                 <div class="flex items-center">
                                  @if($commande->livreur->statut ==="disponible")
                                     <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
