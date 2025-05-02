@@ -26,5 +26,9 @@ class Livreur extends Model
     {
         return $this->hasMany(Commande::class, 'id_livreur');
     }
+    public function colie()
+    {
+        return $this->hasMany(Colis::class, 'id_livreur');
+    }
 }
 

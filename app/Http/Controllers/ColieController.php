@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Models\Colis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ColieController extends Controller
 {
    public function viewColisPage()
    {
-       $commandes = Commande::where('livraison_statut', 'accepter')->whereDoesntHave('colis')->get();
-       $colis = Colis::with(['commande.client.utilisateur'])->get();
+       $livreur = Auth::user()->livreur;
+       $commandes = Commande::where('livraison_statut', 'accepter')->where('id_livreur', $livreur->id)->whereDoesntHave('colis')->get();
+       $colis = Colis::where('id_livreur', $livreur->id)->with(['commande.client.utilisateur'])->get();
+
        return view('dashboard.livreur.colis', compact('commandes', 'colis'));
    }
 
@@ -29,6 +32,7 @@ class ColieController extends Controller
            Commande::findOrFail($request->commande_id);
            
            $colisNumber = 'CLS-' . rand(10000, 99999);
+           $livreur = Auth::user()->livreur;
 
            Colis::create([
                'colie_number' => $colisNumber,
@@ -37,7 +41,8 @@ class ColieController extends Controller
                'largeur' => $request->largeur,
                'hauteur' => $request->hauteur,
                'statut' => 'en_preparation',
-               'id_commande' => $request->commande_id
+               'id_commande' => $request->commande_id,
+               'id_livreur' => $livreur->id
            ]);
 
            return redirect()->route('livreur.colis')

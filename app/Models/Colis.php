@@ -20,7 +20,8 @@ class Colis extends Model
         'heure_sortie',
         'date_arrivee_estime',
         'statut',
-        'id_commande'
+        'id_commande',
+        'id_livreur'
     ];
 
     public function commande()
@@ -31,5 +32,10 @@ class Colis extends Model
     public function sauvegardes()
     {
         return $this->hasMany(ColisSauvegarde::class, 'id_colie');
+    }
+
+    public function livreur()
+    {
+        return $this->belongsTo(Livreur::class, 'livreur_id');
     }
 }
