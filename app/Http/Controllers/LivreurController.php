@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Colis;
 use App\Models\Commande;
+use App\Models\Livreur;
+use App\Models\Paiement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +48,10 @@ class LivreurController extends Controller
        ->whereBetween('date_commande', [$startOfMonth, Carbon::now()])
        ->count();
 
-       return view("dashboard/livreur/index", compact('todayRevenue','monthlyRevenue','todayDeliveredColis', 'monthlyDeliveredColis', 'todayColisInDelivery', 'monthlyColisInDelivery', 'todayTotalOrders', 'monthlyTotalOrders'));
+    $commandes = Commande::with('client.utilisateur')->latest()->take(4)->get();
+    $livreurs = Livreur::where('statut','disponible')->with('utilisateur')->get();   
+    $paiements = Paiement::with('colis.commande.client.utilisateur')->take(4)->get();
+
+       return view("dashboard/livreur/index", compact('paiements','commandes','livreurs','todayRevenue','monthlyRevenue','todayDeliveredColis', 'monthlyDeliveredColis', 'todayColisInDelivery', 'monthlyColisInDelivery', 'todayTotalOrders', 'monthlyTotalOrders'));
   }
 }
