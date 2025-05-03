@@ -27,54 +27,54 @@
      <div class="grid grid-cols-1 gap-4 my-6 mt-6 mb-10 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
          <div class="p-5 bg-white rounded-lg shadow-sm">
              <div class="flex justify-between items-center mb-2">
-                 <span class="text-sm text-gray-600">Colie livrée</span>
+                 <span class="text-sm text-gray-600">Commande livrée</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">Aujourd'hui</span>
              </div>
              <div class="mb-4 h-px bg-gray-200"></div>
              <div class="flex justify-between items-center mb-4">
-                 <span class="text-2xl font-bold">25</span>
+                 <span class="text-2xl font-bold">{{$todayDeliveredOrders}}</span>
                  <span class="flex items-center text-sm text-green-700">
                      <i class="mr-1 fas fa-arrow-up"></i>2.5%
                  </span>
              </div>
              <div class="flex justify-between items-center">
-                 <span class="text-sm text-gray-600">475 colie</span>
+                 <span class="text-sm text-gray-600">{{$monthlyDeliveredOrders}} commande</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">ce-mois-ci</span>
              </div>
          </div>
 
          <div class="p-5 bg-white rounded-lg shadow-sm">
              <div class="flex justify-between items-center mb-2">
-                 <span class="text-sm text-gray-600">Annulation</span>
+                 <span class="text-sm text-gray-600">Commande en Livraison</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">Aujourd'hui</span>
              </div>
              <div class="mb-4 h-px bg-gray-200"></div>
              <div class="flex justify-between items-center mb-4">
-                 <span class="text-2xl font-bold">7</span>
+                 <span class="text-2xl font-bold">{{$todayOrdersInDelivery}}</span>
                  <span class="flex items-center text-sm text-green-700">
                      <i class="mr-1 fas fa-arrow-up"></i>2.5%
                  </span>
              </div>
              <div class="flex justify-between items-center">
-                 <span class="text-sm text-gray-600">20 commande</span>
+                 <span class="text-sm text-gray-600">{{$monthlyOrdersInDelivery}} commande</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">ce-mois-ci</span>
              </div>
          </div>
 
          <div class="p-5 bg-white rounded-lg shadow-sm">
              <div class="flex justify-between items-center mb-2">
-                 <span class="text-sm text-gray-600">Commande</span>
+                 <span class="text-sm text-gray-600">Total Commande</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">Aujourd'hui</span>
              </div>
              <div class="mb-4 h-px bg-gray-200"></div>
              <div class="flex justify-between items-center mb-4">
-                 <span class="text-2xl font-bold">250</span>
+                 <span class="text-2xl font-bold">{{$todayTotalOrders}}</span>
                  <span class="flex items-center text-sm text-green-700">
                      <i class="mr-1 fas fa-arrow-up"></i>2.5%
                  </span>
              </div>
              <div class="flex justify-between items-center">
-                 <span class="text-sm text-gray-600">25 commande</span>
+                 <span class="text-sm text-gray-600">{{$monthlyTotalOrders}} commande</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">ce-mois-ci</span>
              </div>
          </div>
@@ -86,13 +86,13 @@
              </div>
              <div class="mb-4 h-px bg-gray-200"></div>
              <div class="flex justify-between items-center mb-4">
-                 <span class="text-2xl font-bold">2500 DH</span>
+                 <span class="text-2xl font-bold">{{ number_format($todayRevenue, 2) }} DH</span>
                  <span class="flex items-center text-sm text-green-700">
                      <i class="mr-1 fas fa-arrow-up"></i>2.5%
                  </span>
              </div>
              <div class="flex justify-between items-center">
-                 <span class="text-sm text-gray-600">85 000 DH</span>
+                 <span class="text-sm text-gray-600">{{ number_format($monthlyRevenue, 2) }} DH</span>
                  <span class="px-2 py-1 text-xs bg-gray-100 rounded">ce-mois-ci</span>
              </div>
          </div>
