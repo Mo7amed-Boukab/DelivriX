@@ -35,6 +35,8 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
  Route::get('/clients', [AdminController::class, 'viewClientPage'])->name('admin.clients');
  Route::get('/paiements', [PaiementsController::class, 'viewPaiementAdminPage'])->name('admin.paiements');
  Route::get('/notifications', [NotificationsController::class, 'viewNotificationsAdminPage'])->name('admin.notifications');
+ Route::post('/notifications/{id}/lu', [NotificationsController::class, 'lireNotification'])->name('admin.notifications.lu');
+ Route::post('/notifications/all-lu', [NotificationsController::class, 'lireToutesNotifications'])->name('admin.notifications.all-lu');
 });
 
 Route::middleware(['auth', 'isLivreur'])->prefix('livreur')->group(function () {
@@ -50,6 +52,9 @@ Route::post('/calendrie/rendez-vous', [CalendrieController::class, 'ajouteRendez
 Route::get('/paiements', [PaiementsController::class, 'viewPaiementLivreurPage'])->name('livreur.paiements');
 Route::post('/paiements/ajouter', [PaiementsController::class, 'ajoutePaiement'])->name('livreur.paiements.store');
 Route::get('/notifications', [NotificationsController::class, 'viewNotificationsLivreurPage'])->name('livreur.notifications');
+Route::post('/notifications/{id}/lu', [NotificationsController::class, 'lireNotification'])->name('livreur.notifications.lu');
+Route::post('/notifications/all-lu', [NotificationsController::class, 'lireToutesNotifications'])->name('livreur.notifications.all-lu');
+
 Route::get('/profile', [ProfileController::class, 'viewProfileLivreurPage'])->name('livreur.profile');
 Route::put('/profile-update-info', [ProfileController::class, 'updateLivreurProfile'])->name('livreur.profile.update');
 Route::put('/profile/update-pass', [ProfileController::class, 'updatePassword'])->name('livreur.profile.password');
@@ -58,6 +63,10 @@ Route::put('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('l
 
 Route::middleware(['auth', 'isClient'])->prefix('client')->group(function () {
  Route::get('/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
+ Route::get('/notifications', [NotificationsController::class, 'viewNotificationsClientPage'])->name('client.notifications');
+ Route::post('/notifications/{id}/lu', [NotificationsController::class, 'lireNotification'])->name('client.notifications.lu');
+ Route::post('/notifications/all-lu', [NotificationsController::class, 'lireToutesNotifications'])->name('client.notifications.all-lu');
+
  Route::get('/profile', [ProfileController::class, 'viewProfileClientPage'])->name('client.profile');
  Route::put('/profile/update-info', [ProfileController::class, 'updateClientProfile'])->name('client.profile.update');
 Route::put('/profiile/update-pass', [ProfileController::class, 'updatePassword'])->name('client.profile.password');

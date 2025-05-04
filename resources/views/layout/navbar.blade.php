@@ -30,6 +30,9 @@
              <a href="{{route('client.dashboard')}}" class="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
                  Accueil
              </a>
+             <a href="{{route('client.notifications')}}" class="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
+                 Notifications
+             </a>
              <a href="{{route('client.profile')}}" class="text-gray-700 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
                  Profile
              </a>
