@@ -72,12 +72,12 @@
                                 <td class="hidden px-6 py-4 text-sm text-gray-700 whitespace-nowrap lg:table-cell">{{ $livreur->utilisateur->adresse }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        @if($livreur->statut == 'active')
+                                        @if($livreur->statut == 'disponible')
                                             <span class="mr-2 w-2.5 h-2.5 bg-green-700 rounded-full"></span>
-                                            <span class="text-sm text-gray-700">Active</span>
+                                            <span class="text-sm text-gray-700">Disponible</span>
                                         @else
                                             <span class="mr-2 w-2.5 h-2.5 bg-red-700 rounded-full"></span>
-                                            <span class="text-sm text-gray-700">Inactive</span>
+                                            <span class="text-sm text-gray-700">Indisponible</span>
                                         @endif
                                     </div>
                                 </td>

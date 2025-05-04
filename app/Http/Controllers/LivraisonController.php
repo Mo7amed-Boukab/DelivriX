@@ -65,7 +65,17 @@ class LivraisonController extends Controller
    public function deleteLivreur($id)
    {
        try {       
+           $livreur = Livreur::findOrFail($id);
+
+           if ($livreur->commandes()->count() > 0) {
+               $livreur->update(['statut' => 'indisponible']);
+               return redirect()->route('admin.livraison')
+                   ->with('success', 'Le livreur a été désactivé. Impossible de le supprimer car il a des commandes associées.');
+           }
+           
            $utilisateur = Utilisateur::findOrFail($id);
+           
+           $livreur->delete();
            $utilisateur->delete();
            
            return redirect()->route('admin.livraison')
