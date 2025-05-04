@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('titre', 100);
             $table->string('message', 255);
             $table->enum('statut', ['lue', 'non_lue'])->default('non_lue');
-            $table->timestamp('date_envoi')->useCurrent();
             $table->unsignedBigInteger('id_utilisateur');
             $table->foreign('id_utilisateur')->references('id')->on('utilisateurs')->onDelete('cascade');
             $table->timestamps();

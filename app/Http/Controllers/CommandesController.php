@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\sendEmail;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class CommandesController extends Controller
@@ -23,7 +24,7 @@ class CommandesController extends Controller
    }
 
    public function viewCommandesAdminPage()
-   {
+   {   
       $commandes = Commande::with(['client.utilisateur'])->latest()->get();
       $livreurs = Livreur::where('statut','disponible')->with('utilisateur')->get();
       return view("dashboard/admin/commandes", compact('commandes', 'livreurs'));
@@ -85,6 +86,7 @@ class CommandesController extends Controller
            'paiement_type' => $request->paiement_type,
            'paiement_status' => $request->paiement_status,
            'id_client' => $utilisateur->id,
+           'id_admin' => Auth::id()
        ]);
 
        Mail::to($request->email)->send(new sendEmail(
@@ -117,6 +119,14 @@ class CommandesController extends Controller
            $commande->livraison_statut = "en_attente";
            $commande->save();
 
+           $adminName = Auth::user()->name;
+           $commandeNumber = $commande->commande_number;
+            Notification::create([
+             'titre' => "Nouvelle commande reçue",
+             'message' => "Commande $commandeNumber assigné par '$adminName'",
+             'id_utilisateur' => $request->livreur_id ,
+            ]);
+
            return redirect()->route('admin.commandes')
                ->with('success', 'Livreur assigné avec succès à la commande.');
        } catch (\Exception $e) {
@@ -132,6 +142,15 @@ class CommandesController extends Controller
             'commande_statut' => 'en_livraison'
         ]);
 
+       $commandeNumber = $commande->commande_number;
+       $livreurName = Auth::user()->name;
+       $id_admin = $commande->id_admin;
+
+        Notification::create([
+         'titre' => "Livraison du Commande $commandeNumber accepté",
+         'message' => "La commande $commandeNumber est accepté pour la livraison par le livreur '$livreurName'",
+         'id_utilisateur' => $id_admin ,
+        ]);
 
         return redirect()->route('livreur.commandes')
             ->with('success', 'Commande est acceptée.');
@@ -142,6 +161,16 @@ class CommandesController extends Controller
         $commande->update([
             'livraison_statut' => 'refuser'
         ]);
+
+        $commandeNumber = $commande->commande_number;
+        $livreurName = Auth::user()->name;
+        $id_admin = $commande->id_admin;
+ 
+         Notification::create([
+          'titre' => "Livraison du Commande $commandeNumber refusé",
+          'message' => "La commande $commandeNumber est refusé pour la livraison par le livreur '$livreurName'",
+          'id_utilisateur' => $id_admin ,
+         ]);
 
         return redirect()->route('livreur.commandes')
             ->with('success', 'Commande est refusée.');

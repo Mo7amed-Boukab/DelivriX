@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use App\Models\Colis;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class ColieController extends Controller
        ]);
 
        try {
-           Commande::findOrFail($request->commande_id);
+           $commande = Commande::findOrFail($request->commande_id);
            
            $colisNumber = 'CLS-' . rand(10000, 99999);
            $livreur = Auth::user()->livreur;
@@ -44,6 +45,14 @@ class ColieController extends Controller
                'statut' => 'en_preparation',
                'id_commande' => $request->commande_id,
                'id_livreur' => $livreur->id
+           ]);
+           $commandeNumber = $commande->commande_number;
+           $id_client = $commande->id_client;
+           
+           Notification::create([
+            'titre' => "Numéro de colis",
+            'message' => "voici le numéro de colie $colisNumber de votre commande $commandeNumber",
+            'id_utilisateur' => $id_client ,
            ]);
 
            return redirect()->route('livreur.colis')

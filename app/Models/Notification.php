@@ -14,7 +14,7 @@ class Notification extends Model
         'titre',
         'message',
         'statut',
-        'utilisateur_id'
+        'id_utilisateur'
     ];
 
     public function utilisateur()

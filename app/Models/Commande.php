@@ -23,7 +23,8 @@ class Commande extends Model
         'commande_statut',
         'date_commande',
         'id_client',
-        'id_livreur'
+        'id_livreur',
+        'id_admin' ,
     ];
 
     public function client()
