@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use App\Models\Client;
+use App\Models\Livreur;
+use App\Models\Commande;
 
 class ProfileController extends Controller
 {
@@ -17,6 +20,19 @@ class ProfileController extends Controller
     
     return view("dashboard/livreur/profile", compact('user', 'livreur'));
    }
+   
+   public function viewProfileAdminPage()
+   {
+    $user = Auth::user();
+    $admin = $user->administrateur;
+    
+    $clients_count = Client::count();
+    $livreurs_count = Livreur::count();
+    $commandes_count = Commande::count();
+    
+    return view("dashboard/admin/profile", compact('user', 'admin', 'clients_count', 'livreurs_count', 'commandes_count'));
+   }
+   
    public function viewProfileClientPage()
    {
     $user = Auth::user();
@@ -122,4 +138,39 @@ class ProfileController extends Controller
            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour de vos informations.');
        }
    }
+   public function updateAdminProfile(Request $request)
+   {
+       $user = Auth::user();
+       $admin = $user->administrateur;
+   
+       $data = $request->validate([
+           'nom_entreprise' => ['required', 'string', 'max:255'],
+           'name' => ['required', 'string', 'max:255'],
+           'email' => ['required', 'email', Rule::unique('utilisateurs')->ignore($user->id)],
+           'phone' => ['required', 'string', 'max:20'],
+           'description' => ['nullable', 'string', 'max:255'],
+           'ville' => ['required', 'string', 'max:50'],
+           'adresse' => ['required', 'string', 'max:255'],
+       ]);
+   
+       try {
+           $user->update([
+               'name' => $data['name'],
+               'email' => $data['email'],
+               'phone' => $data['phone'],
+               'ville' => $data['ville'],
+               'adresse' => $data['adresse'],
+           ]);
+   
+           $admin->update([
+               'nom_entreprise' => $data['nom_entreprise'],
+               'description' => $data['description'],
+           ]);
+   
+           return redirect()->back()->with('success', 'Vos informations ont été mises à jour avec succès.');
+       } catch (\Exception $e) {
+           return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour de vos informations : ' . $e->getMessage());
+       }
+   }
+   
 }
