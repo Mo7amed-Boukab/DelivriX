@@ -32,6 +32,7 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
  Route::post('/commandes/{id}/assigner-livreur', [CommandesController::class, 'assignerLivreur'])->name('admin.commandes.assigner-livreur');
  Route::get('/livraison', [LivraisonController::class, 'viewLivraisonPage'])->name('admin.livraison');
  Route::post('/livraison', [LivraisonController::class, 'ajouteLivreur'])->name('admin.livraison.store');
+ Route::delete('/livraison/delete/{id}', [LivraisonController::class, 'deleteLivreur'])->name('admin.livraison.delete');
  Route::get('/clients', [AdminController::class, 'viewClientPage'])->name('admin.clients');
  Route::get('/paiements', [PaiementsController::class, 'viewPaiementAdminPage'])->name('admin.paiements');
  Route::get('/notifications', [NotificationsController::class, 'viewNotificationsAdminPage'])->name('admin.notifications');

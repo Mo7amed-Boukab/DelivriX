@@ -61,4 +61,18 @@ class LivraisonController extends Controller
                ->with('error', 'Une erreur est survenue lors de l\'ajout du livreur.');
        }
    }
+
+   public function deleteLivreur($id)
+   {
+       try {       
+           $utilisateur = Utilisateur::findOrFail($id);
+           $utilisateur->delete();
+           
+           return redirect()->route('admin.livraison')
+               ->with('success', 'Livreur supprimé avec succès.');
+       } catch (\Exception $e) {
+           return redirect()->route('admin.livraison')
+               ->with('error', 'Une erreur est survenue lors de la suppression du livreur: ' . $e->getMessage());
+       }
+   }
 }
