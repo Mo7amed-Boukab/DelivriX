@@ -6,6 +6,7 @@ use App\Models\Colis;
 use App\Models\Commande;
 use App\Models\Livreur;
 use App\Models\Paiement;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,12 @@ use Illuminate\Support\Facades\Auth;
 class LivreurController extends Controller
 {
    public function index(){
-    $livreur = Auth::user()->livreur;
+    $user = Auth::user();
+    $livreur = $user->livreur;
     $today = Carbon::today();
     $startOfMonth = Carbon::now()->startOfMonth();
+    
+    $notifications = Notification::where('id_utilisateur', $user->id)->where('statut', 'non_lue')->orderBy('created_at', 'desc')->take(4)->get();
 
     $todayRevenue = Commande::where('id_livreur', $livreur->id)->whereDate('date_commande', $today)
         ->where('paiement_status', 1)
@@ -52,6 +56,6 @@ class LivreurController extends Controller
     $livreurs = Livreur::where('statut','disponible')->with('utilisateur')->get();   
     $paiements = Paiement::with('colis.commande.client.utilisateur')->take(4)->get();
 
-       return view("dashboard/livreur/index", compact('paiements','commandes','livreurs','todayRevenue','monthlyRevenue','todayDeliveredColis', 'monthlyDeliveredColis', 'todayColisInDelivery', 'monthlyColisInDelivery', 'todayTotalOrders', 'monthlyTotalOrders'));
+       return view("dashboard/livreur/index", compact('user','paiements','commandes','livreurs','todayRevenue','monthlyRevenue','todayDeliveredColis', 'monthlyDeliveredColis', 'todayColisInDelivery', 'monthlyColisInDelivery', 'todayTotalOrders', 'monthlyTotalOrders', 'notifications'));
   }
 }

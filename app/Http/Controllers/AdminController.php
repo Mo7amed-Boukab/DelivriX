@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Colis;
 use App\Models\Commande;
+use App\Models\Notification;
+use App\Models\Utilisateur;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index(){
-
+     $user = Auth::user();
      $today = Carbon::today();
      $startOfMonth = Carbon::now()->startOfMonth();
+
+     $notifications = Notification::where('id_utilisateur', $user->id)->where('statut', 'non_lue')->orderBy('created_at', 'desc')->take(4)->get();
  
      $todayRevenue = Commande::whereDate('date_commande', $today)->where('paiement_status', 1)->sum('total_a_payer');
      $monthlyRevenue = Commande::whereBetween('date_commande', [$startOfMonth, Carbon::now()])
@@ -33,7 +38,7 @@ class AdminController extends Controller
  
  
  
-       return view("dashboard/admin/index", compact('todayRevenue','monthlyRevenue','todayTotalOrders','monthlyTotalOrders','todayDeliveredOrders','monthlyDeliveredOrders','todayOrdersInDelivery','monthlyOrdersInDelivery'));
+       return view("dashboard/admin/index", compact('user', 'notifications', 'todayRevenue','monthlyRevenue','todayTotalOrders','monthlyTotalOrders','todayDeliveredOrders','monthlyDeliveredOrders','todayOrdersInDelivery','monthlyOrdersInDelivery'));
     }
 
     public function viewClientPage()
